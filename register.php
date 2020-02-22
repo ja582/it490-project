@@ -44,6 +44,9 @@
     <input name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+    <div class = "signin">
+        <p> Already have an account? <a href="login.php" >Sign in </a></p>
+    </div>
 </form>
 </body>
 </html>
