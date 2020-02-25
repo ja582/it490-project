@@ -4,10 +4,22 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
-function login($user,$pass){
+function loginMessage($username,$password){
+	
 	//TODO validate user credentials
-	return true;
+	
+	return true; //return true meaning that credentials match
+	
+	
 }
+
+function registerMessage($uername, $password){
+	
+	
+	
+
+}
+
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
@@ -19,7 +31,9 @@ function request_processor($req){
 	$type = $req['type'];
 	switch($type){
 		case "login":
-			return login($req['username'], $req['password']);
+			return loginMessage($req['username'], $req['password']);
+		case "register":
+			return registerMessage
 		case "validate_session":
 			return validate($req['session_id']);
 		case "echo":
