@@ -12,6 +12,8 @@ else{
 	$msg = array("message"=>"test message", "type"=>"echo"); //goign to have to change this to a different type (
 	
 }
+//going have to write how the clinet handles the username and passwrod
+//probably using some sort of array 
 
 $response = $client->send_request($msg);
 
@@ -33,7 +35,8 @@ else{
 	$msg = array("message"=>"test message", "type"=>"echo"); //going to have to chnage this to different type (type "login")
 	
 }
-
+//going have to write how the clinet handles the username and passwrod
+//probably using some sort of array 
 $response = $client->send_request($msg);
 
 echo "client received response: " . PHP_EOL;
