@@ -37,7 +37,7 @@
     <link href="css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-<form class="form-signin" method="POST" action="#">
+<form class="form-signin" method="POST" action="loginHandler.php">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <input name="username" type="text" class="form-control" placeholder="Username" required autofocus/>
     <input name="password" type="password" class="form-control" placeholder="Password" required/>
