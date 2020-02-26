@@ -33,7 +33,7 @@ function request_processor($req){
 		case "login":
 			return loginMessage($req['username'], $req['password']);
 		case "register":
-			return registerMessage
+			return registerMessage;
 		case "validate_session":
 			return validate($req['session_id']);
 		case "echo":
