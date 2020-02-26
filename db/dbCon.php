@@ -1,5 +1,5 @@
 <?php
-/* Database connection settings */
+
 $host = '192.168.1.51';
 $user = 'root';
 $pass = 'markit';
