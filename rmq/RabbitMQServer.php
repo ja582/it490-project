@@ -7,7 +7,7 @@ require_once('rabbitMQLib.inc');
 function loginMessage($username,$password){
 	
 	//TODO validate user credentials
-	
+	//new branch
 	return true; //return true meaning that credentials match
 	
 	
