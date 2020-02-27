@@ -9,16 +9,22 @@ if(isset($argv[1])){
 	$msg = $argv[1];
 }
 else{
-	$msg = array("message"=>"test message", "type"=>"echo"); //goign to have to change this to a different type (
-	
+	$msg = "Register"; //message being assigned register
 }
 //going have to write how the clinet handles the username and passwrod
-//probably using some sort of array 
+//probably using some sort of array
 
-$response = $client->send_request($msg);
+//fill an array? assign ['']="" or $req = array( "type" => "Register", ....)
+//arrays in php are key value pairs
+
+
+$req = array("type" => "register", "username" => $username, "password" => $password, "message" => $msg);
+
+
+$response = $client->send_request($req);
 
 echo "client received response: " . PHP_EOL;
-print_r($response);
+return($response);
 echo "\n\n";
 
 if(isset($argv[0]))
@@ -32,15 +38,18 @@ if(isset($argv[1])){
 	$msg = $argv[1];
 }
 else{
-	$msg = array("message"=>"test message", "type"=>"echo"); //going to have to chnage this to different type (type "login")
+	$msg = "Login"; //assigning message to login
 	
 }
 //going have to write how the clinet handles the username and passwrod
 //probably using some sort of array 
-$response = $client->send_request($msg);
+
+$req = array("type" => "login", "username" => $username, "password" => $password, "message" => $msg);
+
+$response = $client->send_request($req);
 
 echo "client received response: " . PHP_EOL;
-print_r($response);
+return($response);
 echo "\n\n";
 
 if(isset($argv[0]))
