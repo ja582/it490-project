@@ -9,7 +9,7 @@ if(isset($argv[1])){
 	$msg = $argv[1];
 }
 else{
-	$msg = array("message"=>"test message", "type"=>"echo"); //goign to have to change this to a different type (
+	$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "password" => $password ); //goign to have to change this to a different type (
 	
 }
 //going have to write how the clinet handles the username and passwrod
@@ -32,8 +32,8 @@ if(isset($argv[1])){
 	$msg = $argv[1];
 }
 else{
-	$msg = array("message"=>"test message", "type"=>"echo"); //going to have to chnage this to different type (type "login")
-	
+	$msg = array("message"=>"Login", "type"=>"login", "username" => $username, "password" => $password); //going to have to chnage this to different type (type "login")
+
 }
 //going have to write how the clinet handles the username and passwrod
 //probably using some sort of array 
