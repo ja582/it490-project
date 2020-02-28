@@ -2,7 +2,6 @@
 
 require("/var/www/html/it490-project/rmq/RabbitMQClient.php");
 
-
 $username = $_POST['username'];
 $password = $_POST['password'];
 
@@ -16,12 +15,6 @@ if($rabbitResponse==false){
     echo "Account is created";
 
 }
-
-
-
-
-
-
 
 
 ?>
