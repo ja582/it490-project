@@ -1,6 +1,39 @@
 <?php
-?>
+ini_set('display_errors',1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+require("config.php");
+
+if(isset($_POST['submitButton'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm = $_POST['confirmPassword'];
+    if($password != $confirm)
+    {
+        echo "Passwords dont match";
+        exit();
+    }
+
+    if ($username != "" && $password != ""){
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $rabbitResponse = registerMessage($username, $hash);
+
+        if($rabbitResponse==false){
+            echo "account already created";
+
+        }else{
+
+            echo "Account is created";
+            header("Location: login.php");
+
+        }
+    }else{
+        echo "Nothing entered";
+    }
+
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>

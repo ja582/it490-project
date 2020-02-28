@@ -7,7 +7,7 @@ require('dbCon.php');
 
 
 function loginMessage($username,$password){
-	
+
 	//TODO validate user credentials
 	//new branch
 
@@ -31,19 +31,10 @@ function loginMessage($username,$password){
 	else{ //row was found in the table, meaning an account exists
 		echo "logging in";
 		return true;
-
-
-
 	}
-
-
-
-	
 }
 
 function registerMessage($username, $password){
-
-
     $host = 'localhost';
     $user = 'mark';
     $pass = 'markit';
@@ -65,9 +56,6 @@ function registerMessage($username, $password){
 
 		echo "account being created";
         return true;
-
-
-
 
 	}
 
