@@ -15,12 +15,12 @@ function loginMessage($username,$password){
 	$user = $result->fetch_assoc();
 
 	if($result->num_rows == 0 ){ //0 meaning that a row was not found with the username and password
-		echo "account does not exist";
+		echo "account does not exist or the username/password are incorrect";
 		return false;
 	}
 	else{ //row was found in the table, meaning an account exists
-		echo "You're logged in";
-		return true;
+		echo "logging in";
+		return null;
 
 
 	}
@@ -41,8 +41,9 @@ function registerMessage($username, $password){
 		$sql = "INSERT INTO users (username, password) VALUES ($username, $password)";
 		$mysqli->query($sql);
 
-		echo "Thank you. Account created";
-		
+		echo "account being created";
+		return null;
+
 
 
 	}
@@ -80,4 +81,5 @@ echo "Rabbit MQ Server Start" . PHP_EOL;
 $server->process_requests('request_processor');
 echo "Rabbit MQ Server Stop" . PHP_EOL;
 exit();
+
 ?>

@@ -42,7 +42,6 @@
     <input name="username" type="text" class="form-control" placeholder="Username" required autofocus/>
     <input name="password" type="password" class="form-control" placeholder="Password" required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
-    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
 </form>
 </body>
 </html>
