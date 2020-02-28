@@ -1,6 +1,6 @@
 <?php
 
-require("rmq/rabbitMQClient.php");
+require("/var/www/html/it490-project/rmq/RabbitMQClient.php");
 
 
 $username = $_POST['username'];
