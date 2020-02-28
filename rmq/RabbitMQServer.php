@@ -11,6 +11,16 @@ function loginMessage($username,$password){
 	//TODO validate user credentials
 	//new branch
 
+    $host = 'localhost';
+    $user = 'mark';
+    $pass = 'markit';
+    $db = 'it490';
+    $mysqli = mysqli_connect($host,$user,$pass,$db);
+
+    if (mysqli_connect_error()){
+        die("Database Connection failed: ".mysqli_connect_error());
+    }
+
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username' and password='$password'");
 	$user = $result->fetch_assoc();
 
@@ -20,7 +30,8 @@ function loginMessage($username,$password){
 	}
 	else{ //row was found in the table, meaning an account exists
 		echo "logging in";
-		return null;
+		return true;
+
 
 
 	}
@@ -32,6 +43,17 @@ function loginMessage($username,$password){
 
 function registerMessage($username, $password){
 
+
+    $host = 'localhost';
+    $user = 'mark';
+    $pass = 'markit';
+    $db = 'it490';
+    $mysqli = mysqli_connect($host,$user,$pass,$db);
+
+    if (mysqli_connect_error()){
+        die("Database Connection failed: ".mysqli_connect_error());
+    }
+
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
 	if($result->num_rows > 0){
 		return false;
@@ -42,7 +64,8 @@ function registerMessage($username, $password){
 		$mysqli->query($sql);
 
 		echo "account being created";
-		return null;
+        return true;
+
 
 
 
