@@ -18,7 +18,7 @@ else{
 $response = $client->send_request($msg);
 
 echo "client received response: " . PHP_EOL;
-print_r($response);
+return($response);
 echo "\n\n";
 
 if(isset($argv[0]))
@@ -40,7 +40,7 @@ else{
 $response = $client->send_request($msg);
 
 echo "client received response: " . PHP_EOL;
-print_r($response);
+return($response);
 echo "\n\n";
 
 if(isset($argv[0]))
