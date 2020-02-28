@@ -3,7 +3,7 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-require_once('db/dbCon.php');
+require_once('dbCon.php');
 
 
 function loginMessage($username,$password){
