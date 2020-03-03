@@ -14,12 +14,14 @@ function loginMessage($username,$password){
     $db = 'new490';
     $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
-    if ($mysqli->connect_error){
+    if ($mysqli->connect_error){ //object oriented connection error
         die("Connection failed: " . $mysqli->connect_error);
     }
 //-> is the object operator. allows variable to access methods of an object
 	//$mysqli->query, $mysqli calling mysqli query method
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
+	
+	
 	$rowUsername = $result->fetch_assoc(); //need to fetch row to compare hash pass to plaintext pass
 				//fetch_assoc() fetches a row as an associative array
 	//$result calling sqli num_rows method
@@ -51,7 +53,7 @@ function registerMessage($username, $hash){
     $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){
-        die("Connection failed: " . $mysqli->connect_error);
+        die("Connection failed: " . $mysqli->connect_error); //object oriented connectiion error
     }
 
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
@@ -87,7 +89,7 @@ function request_processor($req){
 			return registerMessage($req['username'], $req['hash']);
 		case "validate_session":
 			return validate($req['session_id']);
-		case "echo":
+		case "echo": //DONT NEED
 			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
 	}
 	return array("return_code" => '0',
