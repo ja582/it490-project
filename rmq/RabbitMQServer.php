@@ -40,7 +40,7 @@ function loginMessage($username,$password){
 	    echo "account does not exist or the username/password are incorrect";
 	    return false;
     }
-}//needed $mysqli-close() in every if/else in order to properly close connection
+}	//needed $mysqli-close() in every if/else in order to properly close connection
 
 function registerMessage($username, $hash){ 
 
