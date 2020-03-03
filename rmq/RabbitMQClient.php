@@ -3,13 +3,12 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
-function registerMessage($username, $password){
+function registerMessage($username, $hash){
 $client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
 if(isset($argv[1])){
-	$msg = $argv[1];
 }
 else{
-	$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "password" => $password ); //goign to have to change this to a different type (
+	$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "hash" => $hash ); //goign to have to change this to a different type (
 	
 }
 //going have to write how the clinet handles the username and passwrod
@@ -48,3 +47,4 @@ echo $argv[0] . " END".PHP_EOL;
 }
 
 ?>
+
