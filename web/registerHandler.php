@@ -13,10 +13,12 @@ $rabbitResponse = registerMessage($username,$hash); //registerMessage in RabbitM
 
 if($rabbitResponse==false){
     echo "account already created";
+    //can redirect here to register page to try again. 
 
 }else{
 
     echo "Account is created";
+    //can redirect here to login page
 
 }
 
