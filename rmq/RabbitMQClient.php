@@ -8,11 +8,11 @@ function registerMessage($username, $hash){
 	if(isset($argv[1])){
 	}
 	else{
-		$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "hash" => $hash ); //goign to have to change this to a different type (
+		$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "hash" => $hash ); //added hash. server listens for "register" now for registering
 
 	}
-	//going have to write how the clinet handles the username and passwrod
-	//probably using some sort of array
+	
+	
 
 	$response = $client->send_request($msg);
 
@@ -31,11 +31,10 @@ function loginMessage($username, $password){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Login", "type"=>"login", "username" => $username, "password" => $password); //going to have to chnage this to different type (type "login")
-
+		$msg = array("message"=>"Login", "type"=>"login", "username" => $username, "password" => $password); 
+		//server listens for "login" in processor function then points to login function
 	}
-	//going have to write how the clinet handles the username and passwrod
-	//probably using some sort of array
+	
 	$response = $client->send_request($msg);
 
 	echo "client received response: " . PHP_EOL;
