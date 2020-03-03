@@ -17,12 +17,15 @@ function loginMessage($username,$password){
     if ($mysqli->connect_error){
         die("Connection failed: " . $mysqli->connect_error);
     }
-
+//-> is the object operator. allows variable to access methods of an object
+	//$mysqli->query, $mysqli calling mysqli query method
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
-	$rowUsername = $result->fetch_assoc();
-
+	$rowUsername = $result->fetch_assoc(); //need to fetch row to compare hash pass to plaintext pass
+				//fetch_assoc() fetches a row as an associative array
+	//$result calling sqli num_rows method
 	if($result->num_rows == 0 || !password_verify($password, $rowUsername['password']) ){ //if there are now rows or the hash doesnt match the plaintext password
-	//password_verify returns a bool. 	
+	//password_verify returns a bool.  
+	//num_rows gets number of rows
 	    $mysqli->close();
 		echo "account does not exist or the username/password are incorrect";
 		return false;
