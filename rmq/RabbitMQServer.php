@@ -12,21 +12,22 @@ function loginMessage($username,$password){
     $user = 'mark';
     $pass = 'markit';
     $db = 'new490';
-    $mysqli = new mysqli($host,$user,$pass,$db);
+    $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
+	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
 	$user = $result->fetch_assoc();
 
-	if($result->num_rows == 0 || !password_verify($password, $user['password']) ){ //0 meaning that a row was not found with the username and passwor
+	if($result->num_rows == 0 || !password_verify($password, $user['password']) ){ //if there are now rows or the hash doesnt match the plaintext password
+	//password_verify returns a bool. 	
 	    $mysqli->close();
 		echo "account does not exist or the username/password are incorrect";
 		return false;
 	}
-	else if($result->num_rows !== 0 && password_verify($password, $user['password'])) { //row was found in the table, meaning an account exists
+	else if($result->num_rows !== 0 && password_verify($password, $user['password'])) { //row was found and hash matches plain text password
 	    $mysqli->close();
 		echo "logging in";
 		return true;
@@ -36,29 +37,29 @@ function loginMessage($username,$password){
 	    echo "account does not exist or the username/password are incorrect";
 	    return false;
     }
-}
+}//needed $mysqli-close() in every if/else in order to properly close connection
 
-function registerMessage($username, $hash){
+function registerMessage($username, $hash){ 
 
     $host = 'localhost';
     $user = 'mark';
     $pass = 'markit';
     $db = 'new490';
-    $mysqli = new mysqli($host,$user,$pass,$db);
+    $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){
         die("Connection failed: " . $mysqli->connect_error);
     }
 
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
-	if($result->num_rows > 0){
+	if($result->num_rows > 0){  //if there is a row then an accoutn is already made
 	    $mysqli->close();
 		return false;
 	}
 	else{
 
 		if(!$mysqli->query("INSERT INTO users (username, password) VALUES ('$username', '$hash')")){
-            echo("Error Description: " . $mysqli->error);
+            echo("Error Description: " . $mysqli->error); //adding this error checking is the only was the data was put in the DB
         }
 		$mysqli->close();
 		echo "account being created";
@@ -75,7 +76,7 @@ function request_processor($req){
 		return "Error: unsupported message type";
 	}
 	//Handle message type
-	$type = $req['type'];
+	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
 		case "login":
 			return loginMessage($req['username'], $req['password']);
