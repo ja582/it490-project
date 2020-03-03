@@ -19,15 +19,15 @@ function loginMessage($username,$password){
     }
 
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
-	$user = $result->fetch_assoc();
+	$rowUsername = $result->fetch_assoc();
 
-	if($result->num_rows == 0 || !password_verify($password, $user['password']) ){ //if there are now rows or the hash doesnt match the plaintext password
+	if($result->num_rows == 0 || !password_verify($password, $rowUsername['password']) ){ //if there are now rows or the hash doesnt match the plaintext password
 	//password_verify returns a bool. 	
 	    $mysqli->close();
 		echo "account does not exist or the username/password are incorrect";
 		return false;
 	}
-	else if($result->num_rows !== 0 && password_verify($password, $user['password'])) { //row was found and hash matches plain text password
+	else if($result->num_rows !== 0 && password_verify($password, $rowUsername['password'])) { //row was found and hash matches plain text password
 	    $mysqli->close();
 		echo "logging in";
 		return true;
