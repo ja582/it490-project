@@ -16,8 +16,8 @@ if($rabbitResponse==false){
 
 }
 
-
-
+//we can use this page to point to the home page/login page after user registers and logs in. Header()????
+//need to save user credentials somehow to keep user signed in and to have changes from the user to bind to their account
 
 
 
