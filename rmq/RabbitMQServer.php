@@ -7,9 +7,6 @@ require_once('rabbitMQLib.inc');
 
 
 function loginMessage($username,$password){
-	
-	//TODO validate user credentials
-	//new branch
 
     $host = 'localhost';
     $user = 'mark';
@@ -21,11 +18,8 @@ function loginMessage($username,$password){
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-
 	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
 	$user = $result->fetch_assoc();
-
-
 
 	if($result->num_rows == 0 || !password_verify($password, $user['password']) ){ //0 meaning that a row was not found with the username and passwor
 	    $mysqli->close();
@@ -36,26 +30,15 @@ function loginMessage($username,$password){
 	    $mysqli->close();
 		echo "logging in";
 		return true;
-
-
-
 	}
 	else {
 	    $mysqli->close();
 	    echo "account does not exist or the username/password are incorrect";
 	    return false;
-
     }
-
-
-
-
-
-	
 }
 
 function registerMessage($username, $hash){
-
 
     $host = 'localhost';
     $user = 'mark';
@@ -80,13 +63,7 @@ function registerMessage($username, $hash){
 		$mysqli->close();
 		echo "account being created";
         return true;
-
-
-
-
 	}
-
-
 
 }
 
