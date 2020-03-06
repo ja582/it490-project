@@ -5,7 +5,7 @@ if(isset($_POST['submitButton'])){
     try{
         $username = $_POST['username'];
         $password = $_POST['password'];
-        if($username != "" && $password = "" ){
+        if($username != "" && $password != "" ){
             $rabbitResponse = login($username, $password);
             if($rabbitResponse==false){
                 echo "login has failed, please try again";
