@@ -18,7 +18,6 @@ function loginMessage($username, $password){
 		echo $results;
         echo $results['password'];
 
-		if($results){
 			if(password_verify($password, $results['password'])){ //comparing plaintext and hash
 				$stmt->execute(array(":username"=> $username));
 
@@ -31,11 +30,6 @@ function loginMessage($username, $password){
 			else{
 				echo "invalid password";
 			}
-		}
-		else{
-			echo "invalid username";
-		}
-
 }
 /*
 function loginMessage($username,$password){
