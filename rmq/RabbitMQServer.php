@@ -90,14 +90,14 @@ function registerMessage($username, $hash){
         die("Connection failed: " . $mysqli->connect_error); //object oriented connectiion error
     }
 
-	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
+	$result = $mysqli->query("SELECT * FROM Users WHERE username='$username'");
 	if($result->num_rows > 0){  //if there is a row then an accoutn is already made
 	    $mysqli->close();
 		return false;
 	}
 	else{
 
-		if(!$mysqli->query("INSERT INTO users (username, password) VALUES ('$username', '$hash')")){
+		if(!$mysqli->query("INSERT INTO Users (username, password) VALUES ('$username', '$hash')")){
             echo("Error Description: " . $mysqli->error); //adding this error checking is the only was the data was put in the DB
         }
 		$mysqli->close();
