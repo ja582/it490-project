@@ -18,8 +18,6 @@ function loginMessage($username, $password){
 		$stmt->execute($usernp);
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		echo $results;
-        echo $results['password'];
 
 			if(password_verify($password, $results['password'])){ //comparing plaintext and hash
 				$stmt->execute(array(":username"=> $username));
