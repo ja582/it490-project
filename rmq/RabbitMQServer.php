@@ -14,7 +14,10 @@ function loginMessage($username, $password){
 
 		$db = new PDO($conn_string, $userDB, $passDB);
 		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
+		$usernp = array(":username"=>$username);
+		$stmt->execute($usernp);
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
+
 		echo $results;
         echo $results['password'];
 
