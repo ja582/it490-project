@@ -118,7 +118,7 @@ function request_processor($req){
 	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
 		case "login":
-			return login($req['username'], $req['password']);
+			return loginMessage($req['username'], $req['password']);
 		case "register":
 			return registerMessage($req['username'], $req['hash']);
 		case "validate_session":
