@@ -7,7 +7,7 @@ require("config.php");
 $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 
 
-function login($username, $password){
+function loginMessage($username, $password){
 	global $conn_string;
 
 	try{
