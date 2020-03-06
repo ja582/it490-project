@@ -3,6 +3,7 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require("config.php");
+session_start();
 
 $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 
@@ -12,10 +13,10 @@ function loginMessage($username, $password){
 
 	try{
 		$db = new PDO($conn_string, $username, $password);
-		$quest = "select id, username, password from `Users` where username = :username LIMIT 1";
-		$stmt = $db->prepare($quest);
+		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
-
+		var_dump($results);
+		/*
 		if($results){
 			$hashpass = $results['password']; //password that is hashed
 			if(password_verify($password, $hashpass)){ //comparing plaintext and hash
@@ -34,6 +35,7 @@ function loginMessage($username, $password){
 		else{
 			echo "invalid username";
 		}
+		*/
 	}
 	catch(Exception $e){
 		echo $e->getMessage();
