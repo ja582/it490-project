@@ -25,6 +25,7 @@ function loginMessage($username, $password){
 				if($results && count($results) > 0){
 					$userSes = array("id"=> $results['id'], "name"=> $results['username']);
 					$_SESSION['user'] = $userSes;
+					echo "user session name: ".$userSes;
 					echo var_export($username, true);
 				}
                 echo "Logged in (Console)";
