@@ -11,7 +11,6 @@ $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 function loginMessage($username, $password){
 	global $conn_string;
 
-	try{
 		$db = new PDO($conn_string, $username, $password);
 		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,12 +35,6 @@ function loginMessage($username, $password){
 			echo "invalid username";
 		}
 		*/
-	}
-	catch(Exception $e){
-		echo $e->getMessage();
-		exit();
-	}
-
 }
 /*
 function loginMessage($username,$password){
