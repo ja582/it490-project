@@ -27,6 +27,7 @@ function loginMessage($username, $password){
 					$_SESSION['user'] = $userSes;
 					echo var_export($username, true);
 				}
+                echo "Logged in (Console)";
 			}
 			else{
 				echo "invalid password";
