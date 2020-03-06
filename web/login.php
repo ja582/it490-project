@@ -1,5 +1,6 @@
 <?php
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
+session_start();
 
 if(isset($_POST['submitButton'])){
     try{
@@ -12,7 +13,7 @@ if(isset($_POST['submitButton'])){
                 //redirect back to login page to try again
             }else{
                 echo "You are logged in!";
-                //redirect to homepage or profile page???
+                
             }
         }
         else{
