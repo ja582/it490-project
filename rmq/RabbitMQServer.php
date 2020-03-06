@@ -15,11 +15,11 @@ function loginMessage($username, $password){
 		$db = new PDO($conn_string, $userDB, $passDB);
 		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
-		var_dump($results);
+		echo $results;
+        echo $results['password'];
 
 		if($results){
-			$hashpass = $results['password']; //password that is hashed
-			if(password_verify($password, $hashpass)){ //comparing plaintext and hash
+			if(password_verify($password, $results['password'])){ //comparing plaintext and hash
 				$stmt->execute(array(":username"=> $username));
 
 				if($results && count($results) > 0){
@@ -35,7 +35,7 @@ function loginMessage($username, $password){
 		else{
 			echo "invalid username";
 		}
-		
+
 }
 /*
 function loginMessage($username,$password){
