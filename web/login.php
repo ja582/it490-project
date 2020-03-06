@@ -3,10 +3,21 @@ require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
 if(isset($_POST['submitButton'])){
     try{
-        $username - $_POST['username'];
-        $password - $_POST['password'];
-
-        $rabbitRespond = loginMessage($username, $password);
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if($username != "" && $password = "" ){
+            $rabbitResponse = login($username, $password);
+            if($rabbitResponse==false){
+                echo "login has failed, please try again";
+                //redirect back to login page to try again
+            }else{
+                echo "You are logged in!";
+                //redirect to homepage or profile page???
+            }
+        }
+        else{
+            echo "username and password is empty";
+        }
     }
     catch(Exception $e){
         echo $e->getMessage();
