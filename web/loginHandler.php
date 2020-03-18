@@ -9,9 +9,11 @@ $rabbitResponse = loginMessage($username,$password);
 
 if($rabbitResponse==false){
     echo "login has failed, please try again";
+    header("Location: loginError.php");
 
 }else{
     echo "You are logged in!";
+    header("Location: profile.php");
 
 
 }
