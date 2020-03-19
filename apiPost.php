@@ -1,15 +1,14 @@
 <?php
+
 // imdb api url
 $url = "https://movie-database-imdb-alternative.p.rapidapi.com/";
 
 //object being created that will be sent to the server to create a collection
-
 $data = [
     'collection' => 'RapidAPI'
 ];
 
 //creating new curl session
-
 $curl = curl_init($url);
 
 //setting the CURLOPT_RETURNTRANSFER option to true. allows the method to return the answer as a string
@@ -34,9 +33,5 @@ $response = curl_exec($curl);
 curl_close($curl);
 
 //displaying response from the sever
-echo $response . PHP_EOL;
-
-
-
-
+echo $response;
 ?>
