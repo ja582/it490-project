@@ -21,10 +21,8 @@ function loginMessage($username, $password){
 				$stmt->execute(array(":username"=> $username));
 
 				if($results && count($results) > 0){
-
-					$userSession['username'] = $user['username'];
-					return json_encode($userSession);
-					return true;
+					$userSes = array("name"=> $results['username']);
+					return json_encode($userSes);
 					echo "Session encoded (Console)";
 				}
                 echo "Logged in (Console)";

@@ -1,12 +1,17 @@
 <?php
 session_start();
 
-if($_SESSION['logged'] = true){
-    echo 'session detected';
-    echo '<br>';
-    echo 'hello'.$_SESSION['username'].'how are you today?';
+if($_SESSION['logged'] != true){
+    echo 'not logged in';
 }else{
-    echo 'nope, no session detected!';
+    $un = $_SESSION['username'];
+    if($un == null){
+        echo "username session variable is empty";
+    }else{
+        echo "session not empty";
+    }
+    echo '<br>';
+    echo 'hello '.$un.'. how are you today?';
 }
 ?>
 
@@ -17,6 +22,6 @@ if($_SESSION['logged'] = true){
     <title>dashboard</title>
 </head>
 <body>
-the
+
 </body>
 </html>

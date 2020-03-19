@@ -12,11 +12,11 @@ if(isset($_POST['submitButton'])){
                 //redirect back to login page to try again
             }else{
                 echo "You are logged in!";
-                $userSession = json_decode($rabbitResponse, true);
+                $userSes = json_decode($rabbitResponse, true);
                 $_SESSION['logged'] = true;
-                $_SESSION['username'] = $userSession['username'];
+                $_SESSION['user'] = $userSes;
+                echo var_export($_SESSION['username']);
                 header("location: dashboard.php");
-                echo "session created username is:".$_SESSION['username'];
             }
         }
         else{
