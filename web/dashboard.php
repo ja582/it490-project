@@ -4,7 +4,7 @@ session_start();
 if($_SESSION['logged'] != true){
     echo 'not logged in';
 }else{
-    $un = $_SESSION['username'];
+    $un = $_SESSION['user']['name'];
     if($un == null){
         echo "username session variable is empty";
     }else{

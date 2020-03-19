@@ -7,7 +7,7 @@ if(isset($_POST['submitButton'])){
         $password = $_POST['password'];
         if($username != "" && $password != "" ){
             $rabbitResponse = loginMessage($username, $password);
-            if($rabbitResponse==false){
+            if($rabbitResponse == false){
                 echo "login has failed, please try again";
                 //redirect back to login page to try again
             }else{
@@ -15,7 +15,7 @@ if(isset($_POST['submitButton'])){
                 $userSes = json_decode($rabbitResponse, true);
                 $_SESSION['logged'] = true;
                 $_SESSION['user'] = $userSes;
-                echo var_export($_SESSION['username']);
+                echo var_export($_SESSION['user']['name']);
                 header("location: dashboard.php");
             }
         }
