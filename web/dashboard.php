@@ -1,5 +1,11 @@
 <?php
+session_start();
 
+if($_SESSION['logged'] = true){
+    echo 'session detected';
+}else{
+    echo 'nope';
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +15,6 @@
     <title>dashboard</title>
 </head>
 <body>
-
+dashboard
 </body>
 </html>

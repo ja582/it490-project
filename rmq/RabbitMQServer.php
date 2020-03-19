@@ -9,23 +9,25 @@ $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 
 
 function loginMessage($username, $password){
-	global $conn_string;
-	global $userDB, $passDB;
+		global $conn_string;
+		global $userDB, $passDB;
 
+		$userSession = array();
 		$db = new PDO($conn_string, $userDB, $passDB);
 		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
 		$usernp = array(":username"=>$username);
 		$stmt->execute($usernp);
 		$results = $stmt->fetch(PDO::FETCH_ASSOC);
-
+		$user = $results;
 
 			if(password_verify($password, $results['password'])){ //comparing plaintext and hash
 				$stmt->execute(array(":username"=> $username));
 
 				if($results && count($results) > 0){
-					$userSes = array("id"=> $results['id'], "name"=> $results['username']);
-					$_SESSION['user'] = $userSes;
 
+					$userSession['username'] = $user['username'];
+					return json_encode($userSession);
+					echo "Session encoded (Console)";
 				}
                 echo "Logged in (Console)";
 			}

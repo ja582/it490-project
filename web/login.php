@@ -1,6 +1,5 @@
 <?php
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
-session_start();
 
 if(isset($_POST['submitButton'])){
     try{
@@ -13,7 +12,11 @@ if(isset($_POST['submitButton'])){
                 //redirect back to login page to try again
             }else{
                 echo "You are logged in!";
-                
+                $userSession = json_decode($rabbitResponse, true);
+                $_SESSION['logged'] = true;
+                $_SESSION['username'] = $userSession['username'];
+                //header("location: dashboard.php");
+                echo "session created";
             }
         }
         else{
