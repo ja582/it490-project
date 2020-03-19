@@ -3,8 +3,10 @@ session_start();
 
 if($_SESSION['logged'] = true){
     echo 'session detected';
+    echo '<br>';
+    echo 'hello'.$_SESSION['username'].'how are you today?';
 }else{
-    echo 'nope';
+    echo 'nope, no session detected!';
 }
 ?>
 
@@ -15,6 +17,6 @@ if($_SESSION['logged'] = true){
     <title>dashboard</title>
 </head>
 <body>
-dashboard
+the
 </body>
 </html>

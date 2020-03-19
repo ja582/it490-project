@@ -15,8 +15,8 @@ if(isset($_POST['submitButton'])){
                 $userSession = json_decode($rabbitResponse, true);
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $userSession['username'];
-                //header("location: dashboard.php");
-                echo "session created";
+                header("location: dashboard.php");
+                echo "session created username is:".$_SESSION['username'];
             }
         }
         else{

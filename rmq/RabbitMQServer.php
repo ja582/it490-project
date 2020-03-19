@@ -3,10 +3,7 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require("config.php");
-session_start();
-
 $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
-
 
 function loginMessage($username, $password){
 		global $conn_string;
@@ -27,6 +24,7 @@ function loginMessage($username, $password){
 
 					$userSession['username'] = $user['username'];
 					return json_encode($userSession);
+					return true;
 					echo "Session encoded (Console)";
 				}
                 echo "Logged in (Console)";
