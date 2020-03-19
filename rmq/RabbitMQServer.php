@@ -9,7 +9,6 @@ function loginMessage($username, $password){
 		global $conn_string;
 		global $userDB, $passDB;
 
-
 		$db = new PDO($conn_string, $userDB, $passDB);
 		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
 		$usernp = array(":username"=>$username);
@@ -22,8 +21,8 @@ function loginMessage($username, $password){
 					$userSes = array("name"=> $results['username']);
 					return json_encode($userSes);
 				}
-				return true;
                 echo "Logged in (Console)";
+				return true;
 			}
 			else{
 				echo "invalid password";
@@ -94,7 +93,6 @@ function registerMessage($username, $hash){
 	}
 
 }
-
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
