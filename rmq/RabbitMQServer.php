@@ -6,92 +6,47 @@ require("config.php");
 $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 
 function loginMessage($username, $password){
-		global $conn_string;
-		global $userDB, $passDB;
+	global $conn_string;
+	global $userDB, $passDB;
 
-		$db = new PDO($conn_string, $userDB, $passDB);
-		$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
-		$usernp = array(":username"=>$username);
-		$stmt->execute($usernp);
-		$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			if(password_verify($password, $results['password'])){ //comparing plaintext and hash
-				$stmt->execute(array(":username"=> $username));
-				if($results && count($results) > 0){
-					$userSes = array("name"=> $results['username']);
-					return json_encode($userSes);
-				}
-                echo "Logged in (Console)";
-				return true;
-			}
-			else{
-				echo "invalid password";
-			}
-}
-/*
-function loginMessage($username,$password){
+	$db = new PDO($conn_string, $userDB, $passDB);
+	$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
+	$usernp = array(":username"=>$username);
+	$stmt->execute($usernp);
+	$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $host = 'localhost';
-    $user = 'mark';
-    $pass = 'markit';
-    $db = 'new490';
-    $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
-
-    if ($mysqli->connect_error){ //object oriented connection error
-        die("Connection failed: " . $mysqli->connect_error);
-    }
-//-> is the object operator. allows variable to access methods of an object
-	//$mysqli->query, $mysqli calling mysqli query method
-	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
-	
-	
-	$rowUsername = $result->fetch_assoc(); //need to fetch row to compare hash pass to plaintext pass
-				//fetch_assoc() fetches a row as an associative array
-	//$result calling sqli num_rows method
-	if($result->num_rows == 0 || !password_verify($password, $rowUsername['password']) ){ //if there are now rows or the hash doesnt match the plaintext password
-	//password_verify returns a bool.  
-	//num_rows gets number of rows
-	    $mysqli->close();
-		echo "account does not exist or the username/password are incorrect";
-		return false;
-	}
-	else if($result->num_rows !== 0 && password_verify($password, $rowUsername['password'])) { //row was found and hash matches plain text password
-	    $mysqli->close();
-		echo "logging in";
+	if(password_verify($password, $results['password'])){ //comparing plaintext and hash
+		$stmt->execute(array(":username"=> $username));
+		if($results && count($results) > 0){
+			$userSes = array("name"=> $results['username']);
+			return json_encode($userSes);
+		}
 		return true;
-	}
-	else {
-	    $mysqli->close();
-	    echo "account does not exist or the username/password are incorrect";
-	    return false;
-    }
-}	//needed $mysqli-close() in every if/else in order to properly close connection
-
-*/
-function registerMessage($username, $hash){
-
-	global $host, $userDB, $passDB, $dbName;
-    $mysqli = new mysqli($host,$userDB,$passDB,$dbName); //object oriented mysqli
-
-    if ($mysqli->connect_error){
-        die("Connection failed: " . $mysqli->connect_error); //object oriented connectiion error
-    }
-
-	$result = $mysqli->query("SELECT * FROM Users WHERE username='$username'");
-	if($result->num_rows > 0){  //if there is a row then an accoutn is already made
-	    $mysqli->close();
-		return false;
+		echo "Logged in (Console)";
 	}
 	else{
-
-		if(!$mysqli->query("INSERT INTO Users (username, password) VALUES ('$username', '$hash')")){
-            echo("Error Description: " . $mysqli->error); //adding this error checking is the only was the data was put in the DB
-        }
-		$mysqli->close();
-		echo "account being created";
-        return true;
+		echo "invalid password";
 	}
+}
 
+function registerMessage($username, $hash){
+	global $conn_string;
+	global $userDB, $passDB;
+	$db = new PDO($conn_string, $userDB, $passDB);
+
+	//checking if username exists already
+	$usncheck = $db->prepare("SELECT * FROM `Users` where username = :username");
+	$usernp = array(":username"=>$username);
+	$usncheck->execute($usernp);
+	$results = $usncheck->fetch(PDO::FETCH_ASSOC);
+	if($results && count($results) > 0){
+		echo "Username already exists";
+		return false;
+	}
+	//check passed, inserts user
+	$stmt = $db->prepare("INSERT into `Users` (`username`, `password`) VALUES(:username, :password)");
+	$r = $stmt->execute(array(":username"=> $username, ":password"=> $hash));
 }
 
 function request_processor($req){
