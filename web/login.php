@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
 if(isset($_POST['submitButton'])){
