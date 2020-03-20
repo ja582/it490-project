@@ -1,27 +1,13 @@
 <?php
-session_start();
-
-if($_SESSION['logged'] != true){
-    echo 'not logged in';
-}else{
-    $un = $_SESSION['user']['name'];
-    if($un == null){
-        echo "username session variable is empty";
-    }else{
-        echo "session not empty";
-    }
-    echo '<br>';
-    echo 'hello '.$un.'. how are you today?';
-}
+include_once("blade/header.php");
 ?>
+    <head>
+        <title>the dashboard</title>
+    </head>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>dashboard</title>
-</head>
-<body>
+    <br>
+    <a href="newpage.php">go to a newpage</a>
 
-</body>
-</html>
+<?php
+include_once("blade/footer.php");
+?>
