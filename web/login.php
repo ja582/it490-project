@@ -40,12 +40,8 @@ if(isset($_POST['submitButton'])){
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Login</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -71,6 +67,10 @@ if(isset($_POST['submitButton'])){
     <input name="username" type="text" class="form-control" placeholder="Username" required autofocus/>
     <input name="password" type="password" class="form-control" placeholder="Password" required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+    <div class = "register">
+        <p>Want to make an account? <a href="register.php" >Register</a></p>
+    </div>
 </form>
-</body>
-</html>
+<?php
+include_once("blade/footer.php");
+?>
