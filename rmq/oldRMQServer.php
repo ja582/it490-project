@@ -1,4 +1,5 @@
 <?php
+//Old code for the previous rabbitMQServer. Backed up incase we need it for later. Maybe not, but I like to be safe.
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
