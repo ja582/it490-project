@@ -6,7 +6,7 @@ include_once("blade/header.php");
     </head>
 
     <br>
-    <a href="newpage.php">go to a newpage</a>
+    <a href="newpageSample.php">go to the newpage sample</a> <!-- This is temporary -->
 
 <?php
 include_once("blade/footer.php");
