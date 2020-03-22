@@ -13,6 +13,9 @@ if($rabbitResponse==false){
 
 }else{
     echo "You are logged in!";
+    $userSes = json_decode($rabbitResponse, true);
+    $_SESSION['logged'] = true;
+    $_SESSION['user'] = $userSes;
     header("Location: profile.php");
 
 
