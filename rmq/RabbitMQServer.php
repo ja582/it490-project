@@ -32,8 +32,9 @@ function loginMessage($username,$password){
 	}
 	else if($result->num_rows !== 0 && password_verify($password, $rowUsername['password'])) { //row was found and hash matches plain text password
 	    $mysqli->close();
+		$userSes = array("name"=> $user['username']);
 		echo "logging in";
-		return true;
+		return json_encode($userSes);
 	}
 	else {
 	    $mysqli->close();
