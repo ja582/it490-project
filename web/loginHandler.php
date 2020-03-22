@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
 $username = $_POST['username'];
