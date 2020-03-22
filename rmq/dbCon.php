@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$user = 'mark';
-$pass = 'markit';
-$db = 'it490';
+$user = 'keo6';
+$pass = 'Foobar123!';
+$db = 'IT490';
 $mysqli = mysqli_connect($host,$user,$pass,$db);
 
 if (mysqli_connect_error()){
