@@ -1,12 +1,28 @@
 <?php
+session_start();
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
 if(isset($_POST['submitButton'])){
     try{
-        $username - $_POST['username'];
-        $password - $_POST['password'];
-
-        $rabbitRespond = loginMessage($username, $password);
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if($username != "" && $password != "" ){
+            $rabbitResponse = loginMessage($username, $password);
+            if($rabbitResponse == false){
+                echo "login has failed, please try again";
+                //redirect back to login page to try again
+            }else{
+                echo "You are logged in!";
+                $userSes = json_decode($rabbitResponse, true);
+                $_SESSION['logged'] = true;
+                $_SESSION['user'] = $userSes;
+                echo var_export($_SESSION['user']['name']);
+                header("location: dashboard.php");
+            }
+        }
+        else{
+            echo "username and password is empty";
+        }
     }
     catch(Exception $e){
         echo $e->getMessage();
@@ -24,12 +40,8 @@ if(isset($_POST['submitButton'])){
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Login</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -50,11 +62,15 @@ if(isset($_POST['submitButton'])){
     <link href="css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-<form class="form-signin" method="POST" action="loginHandler.php">
+<form class="form-signin" method="POST" action="#">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <input name="username" type="text" class="form-control" placeholder="Username" required autofocus/>
     <input name="password" type="password" class="form-control" placeholder="Password" required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+    <div class = "register">
+        <p>Want to make an account? <a href="register.php" >Register</a></p>
+    </div>
 </form>
-</body>
-</html>
+<?php
+include_once("blade/footer.php");
+?>

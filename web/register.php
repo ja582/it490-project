@@ -67,19 +67,19 @@ if(isset($_POST['submitButton'])){
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
+
 </head>
 <body class="text-center">
-<form class="form-signin" method="POST" action="registerHandler.php">
+<form class="form-signin" method="POST" action="#">
     <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
     <input name="username" type="text" class="form-control" placeholder="Username" required autofocus/>
     <input name="password" type="password" class="form-control" placeholder="Password" required/>
     <input name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
-    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
     <div class = "signin">
-        <p> Already have an account? <a href="login.php" >Sign in </a></p>
+        <p>Already have an account? <a href="login.php" >Sign in</a></p>
     </div>
 </form>
-</body>
-</html>
+<?php
+include_once("blade/footer.php");
+?>
