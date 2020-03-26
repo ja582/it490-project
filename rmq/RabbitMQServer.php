@@ -9,9 +9,9 @@ require_once('rabbitMQLib.inc');
 function loginMessage($username,$password){
 
     $host = 'localhost';
-    $user = 'mark';
-    $pass = 'markit';
-    $db = 'new490';
+    $user = 'keo6';
+    $pass = 'Foobar123!';
+    $db = 'IT490';
     $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){
@@ -19,7 +19,7 @@ function loginMessage($username,$password){
     }
 //-> is the object operator. allows variable to access methods of an object
 	//$mysqli->query, $mysqli calling mysqli query method
-	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
+	$result = $mysqli->query("SELECT * FROM user WHERE username='$username'"); //only looking for username now becuase password is hashed in DB
 	$rowUsername = $result->fetch_assoc(); //need to fetch row to compare hash pass to plaintext pass
 				//fetch_assoc() fetches a row as an associative array
 	//$result calling sqli num_rows method
@@ -45,23 +45,23 @@ function loginMessage($username,$password){
 function registerMessage($username, $hash){ 
 
     $host = 'localhost';
-    $user = 'mark';
-    $pass = 'markit';
-    $db = 'new490';
+    $user = 'keo6';
+    $pass = 'Foobar123!';
+    $db = 'IT490';
     $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-	$result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
+	$result = $mysqli->query("SELECT * FROM user WHERE username='$username'");
 	if($result->num_rows > 0){  //if there is a row then an accoutn is already made
 	    $mysqli->close();
 		return false;
 	}
 	else{
 
-		if(!$mysqli->query("INSERT INTO users (username, password) VALUES ('$username', '$hash')")){
+		if(!$mysqli->query("INSERT INTO user (username, password) VALUES ('$username', '$hash')")){
             echo("Error Description: " . $mysqli->error); //adding this error checking is the only was the data was put in the DB
         }
 		$mysqli->close();
