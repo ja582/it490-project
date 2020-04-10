@@ -74,6 +74,33 @@ function registerMessage($username, $hash){
 
 function movieFavMessage($movieText, $newUser){
 	
+    $host = 'localhost';
+    $user = 'mark';
+    $pass = 'markit';
+    $db = 'new490';
+    $mysqli = new mysqli($host,$user,$pass,$db);
+
+    if ($mysqli->connect_error){
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    $sql = "INSERT INTO favoriteMovies (username, movieText) VALUES ('$newUser', '$movieText')";
+
+    if ($mysqli->query($sql)==TRUE){
+        echo "Record created successfully";
+
+
+    }
+    else{
+
+        echo "ERROR: " .$sql. "<br>" .$mysqli->error;
+
+    }
+
+    $mysqli->close();
+
+
+	
 	
 	
 }
