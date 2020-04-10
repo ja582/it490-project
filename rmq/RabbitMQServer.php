@@ -72,6 +72,12 @@ function registerMessage($username, $hash){
 
 }
 
+function movieFavMessage($movieText, $newUser){
+	
+	
+	
+}
+
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
@@ -82,6 +88,8 @@ function request_processor($req){
 	//Handle message type
 	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
+		case "favMovie":
+            		return movieFavMessage($req['movieText'], $req['newUser']);
 		case "login":
 			return loginMessage($req['username'], $req['password']);
 		case "register":
