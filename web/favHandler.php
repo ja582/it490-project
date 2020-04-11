@@ -16,7 +16,7 @@ require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $movieText=$_POST['movieText'];
 
 
-movieFavMessage($movieText, $newUser);
+movieFavMessage($newUser, $movieText);
 
 
 
