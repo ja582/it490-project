@@ -13,6 +13,9 @@ else{
 <html>
 <head>
     <link rel="stylesheet" href="profileStyle.css">
+    <style>
+        .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
+    </style>
 </head>
 
 <body>
@@ -25,16 +28,19 @@ else{
     </div>
     <div class="leftpane">
         <h1>Favorite Movies</h1>
-        <input type='text' id='idea' />
-        <input type='button' value='add to list' id='add' />
+        <iframe name=hiddenFrame" class="hide"></iframe>
+            <form action="favHandler.php" method="post" target="hiddenFrame">
+        <input type='text' id='movieText' name="movieText" />
+        <input type='submit' value='add to favorite movies' id='submit' name="submit" />
+            </form>
         <script>
-            document.getElementById("add").onclick  = function() {
+            document.getElementById("submit").onclick  = function() {
                 var node = document.createElement("Li");
-                var text = document.getElementById("idea").value;
+                var text = document.getElementById("movieText").value;
                 var textnode=document.createTextNode(text);
                 node.appendChild(textnode);
                 document.getElementById("list").appendChild(node);
-                document.getElementById('idea').value=null;
+                //document.getElementById('idea').value=null;
 
             }
         </script>
@@ -47,7 +53,7 @@ else{
     <div class="rightpane">
         <h1>Movie Reviews</h1>
     <input type='text' id='review' placeholder="Movie Title - Review"/>
-    <input type='button' value='add to list' id='addList' />
+    <input type='submit' value='add to list' id='addList' />
     <script>
         document.getElementById("addList").onclick  = function() {
             var nodeList = document.createElement("Li");
@@ -55,7 +61,7 @@ else{
             var textnodeList=document.createTextNode(textList);
             nodeList.appendChild(textnodeList);
             document.getElementById("reviewList").appendChild(nodeList);
-            document.getElementById('review').value=null;
+            //document.getElementById('review').value=null;
 
         }
     </script>
