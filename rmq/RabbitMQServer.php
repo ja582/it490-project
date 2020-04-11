@@ -72,7 +72,7 @@ function registerMessage($username, $hash){
 
 }
 
-function movieFavMessage($movieText, $newUser){
+function movieFavMessage($newUser, $movieText){
 	
     $host = 'localhost';
     $user = 'mark';
@@ -116,7 +116,7 @@ function request_processor($req){
 	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
 		case "favMovie":
-            		return movieFavMessage($req['movieText'], $req['newUser']);
+            		return movieFavMessage($req['newUser'], $req['movieText']);
 		case "login":
 			return loginMessage($req['username'], $req['password']);
 		case "register":
