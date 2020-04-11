@@ -24,7 +24,7 @@ function registerMessage($username, $hash){
 	echo $argv[0] . " END".PHP_EOL;
 }
 
-function movieFavMessage($movieText,$newUser){
+function movieFavMessage($newUser,$movieText){
 	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
