@@ -15,6 +15,7 @@ else{
     <link rel="stylesheet" href="profileStyle.css">
     <style>
         .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
+        .hideReview { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
     </style>
 </head>
 
@@ -28,6 +29,11 @@ else{
     </div>
     <div class="leftpane">
         <h1>Favorite Movies</h1>
+        <form action="displayFavMoviesHandler.php" method="POST">
+        <input type="submit" value = "View all your favorite movies" id="favsRev" name = "favsRev" />
+        </form>
+        <br>
+        <br>
         <iframe name=hiddenFrame" class="hide"></iframe>
             <form action="favHandler.php" method="post" target="hiddenFrame">
         <input type='text' id='movieText' name="movieText" />
@@ -45,6 +51,7 @@ else{
             }
         </script>
         <ul id='list'></ul>
+
     </div>
     <div class="middlepane">
         <h1>Movie Lists</h1>
@@ -52,8 +59,16 @@ else{
     </div>
     <div class="rightpane">
         <h1>Movie Reviews</h1>
-    <input type='text' id='review' placeholder="Movie Title - Review"/>
+        <form action="displayReviewsHandler.php" method="POST">
+        <input type="submit" value="View all your movie reviews" id="revBut" name = "revBut" />
+        </form>
+        <br>
+        <br>
+        <iframe name=hiddenFrameReview" class="hideReview"></iframe>
+        <form action="reviewHandler.php" method="post" target="hiddenFrameReview">
+    <input type='text' id='review' name="review" placeholder="Movie Title - Review"/>
     <input type='submit' value='add to list' id='addList' />
+        </form>
     <script>
         document.getElementById("addList").onclick  = function() {
             var nodeList = document.createElement("Li");
@@ -66,7 +81,9 @@ else{
         }
     </script>
     <ul id='reviewList'></ul>
+
 </div>
+
 </div>
 
 </body>
