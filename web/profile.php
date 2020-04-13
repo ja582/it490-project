@@ -16,6 +16,7 @@ else{
     <style>
         .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
         .hideReview { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
+        .home{right:200px;}
     </style>
 </head>
 
@@ -26,6 +27,7 @@ else{
         <h1>Profile Details</h1>
         <p> <?php echo 'Welcome ' . $newUser ?> </p>
         <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>
+        <a href="homeSearch.php"><button class="home" name="home"/>Search Movies</button></a>
     </div>
     <div class="leftpane">
         <h1>Favorite Movies</h1>
