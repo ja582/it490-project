@@ -9,9 +9,9 @@ $conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 function loginMessage($username,$password){
 
     $host = 'localhost';
-    $user = 'mark';
-    $pass = 'markit';
-    $db = 'new490';
+    $user = 'keo6';
+    $pass = 'Foobar123!';
+    $db = 'IT490';
     $mysqli = new mysqli($host,$user,$pass,$db); //object oriented mysqli
 
     if ($mysqli->connect_error){ //object oriented connection error

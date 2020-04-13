@@ -49,6 +49,36 @@ function registerMessage($username, $hash){
 	$r = $stmt->execute(array(":username"=> $username, ":password"=> $hash));
 }
 
+function apirequest($search){
+        require("config.inc");
+        $curl = curl_init();
+
+curl_setopt_array($curl, array(CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/?page=1&r=json&s=$search",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+                "x-rapidapi-host: imdb-internet-movie-database-unofficial.p.rapidapi.com",
+                "x-rapidapi-key: d06d55bac0msh0005fcfba20f964p1ddd4cjsndc27523d1d46"
+        ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+        echo "cURL Error #:" . $err;
+} else {
+        echo $response;
+}
+}
+
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
 	echo "<pre>" . var_dump($req) . "</pre>";
@@ -64,6 +94,8 @@ function request_processor($req){
 			return registerMessage($req['username'], $req['hash']);
 		case "validate_session":
 			return validate($req['session_id']);
+		case "apirequest":
+			return apirequest($req['query']);
 		case "echo": //DONT NEED
 			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
 	}
