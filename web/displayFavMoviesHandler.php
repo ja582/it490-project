@@ -23,7 +23,16 @@ else{
     $favs = json_decode($response, true);
 
     echo $favs;
+    
+    echo "<br>";
+    echo "<br>";
 
+    foreach($favs as $movie){
+        echo $movie['movieText'];
+        echo "<br>";
+
+    }
+    
     echo "<br>";
     echo "<br>";
 
