@@ -1,6 +1,6 @@
 <?php
 $host="localhost";
-$dbName="it490db";
-$userDB="joe";
-$passDB="tusk";
+$dbName="IT490";
+$userDB="keo6";
+$passDB="Foobar123!";
 ?>

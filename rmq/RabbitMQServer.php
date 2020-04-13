@@ -2,52 +2,37 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-require("config.php");
-$conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
 
-function loginMessage($username, $password){
-	global $conn_string;
-	global $userDB, $passDB;
+function apirequest($search){
+        require("config.inc");
+        $curl = curl_init();
 
+curl_setopt_array($curl, array(CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/$search",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+                "x-rapidapi-host: imdb-internet-movie-database-unofficial.p.rapidapi.com",
+	        "x-rapidapi-key: d06d55bac0msh0005fcfba20f964p1ddd4cjsndc27523d1d46",
+        ),
+));
 
-	$db = new PDO($conn_string, $userDB, $passDB);
-	$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
-	$usernp = array(":username"=>$username);
-	$stmt->execute($usernp);
-	$results = $stmt->fetch(PDO::FETCH_ASSOC);
+$response = curl_exec($curl);
+$err = curl_error($curl);
+$result = json_encode($response);
+curl_close($curl);
 
-	if(password_verify($password, $results['password'])){ //comparing plaintext and hash
-		$stmt->execute(array(":username"=> $username));
-		if($results && count($results) > 0){
-			$userSes = array("name"=> $results['username']);
-			return json_encode($userSes);
-		}
-		return true;
-		echo "Logged in (Console)";
-	}
-	else{
-		echo "invalid password";
-	}
+if ($err) {
+        echo "cURL Error #:" . $err;
+} else {
+        echo $result;
+}
 }
 
-function registerMessage($username, $hash){
-	global $conn_string;
-	global $userDB, $passDB;
-	$db = new PDO($conn_string, $userDB, $passDB);
-
-	//checking if username exists already
-	$usncheck = $db->prepare("SELECT * FROM `Users` where username = :username");
-	$usernp = array(":username"=>$username);
-	$usncheck->execute($usernp);
-	$results = $usncheck->fetch(PDO::FETCH_ASSOC);
-	if($results && count($results) > 0){
-		echo "Username already exists";
-		return false;
-	}
-	//check passed, inserts user
-	$stmt = $db->prepare("INSERT into `Users` (`username`, `password`) VALUES(:username, :password)");
-	$r = $stmt->execute(array(":username"=> $username, ":password"=> $hash));
-}
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
@@ -64,8 +49,8 @@ function request_processor($req){
 			return registerMessage($req['username'], $req['hash']);
 		case "validate_session":
 			return validate($req['session_id']);
-		case "echo": //DONT NEED
-			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
+		case "apirequest":
+			return apirequest($req['query']);
 	}
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");
