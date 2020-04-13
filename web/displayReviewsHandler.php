@@ -22,6 +22,19 @@ if ($response == false) {
     $reviews = json_decode($response, true);
 
     echo $reviews;
+    
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+
+    foreach($reviews as $review){
+        echo $review['review'];
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+    }
 
     echo "<br>";
     echo "<br>";
