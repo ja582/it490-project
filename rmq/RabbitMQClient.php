@@ -12,8 +12,6 @@ function registerMessage($username, $hash){
 
 	}
 	
-	
-
 	$response = $client->send_request($msg);
 
 	echo "client received response: " . PHP_EOL;
@@ -44,6 +42,21 @@ function loginMessage($username, $password){
 	if(isset($argv[0]))
 	echo $argv[0] . " END".PHP_EOL;
 }
+
+$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+if(isset($argv[1])){
+	$msg = array("query"=>$argv[1], "type"=>"apirequest");
+} else{
+	$msg = array("query"=>"hero", "type"=>"apirequest");
+}
+
+$response = $client->send_request($msg);
+
+echo "Info you asked for: " . PHP_EOL;
+print_r($response);
+
+if(isset($argv[0]))
+	echo $argv[0] . " END" . PHP_EOL;
 
 ?>
 
