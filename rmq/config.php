@@ -1,6 +1,5 @@
 <?php
-$host="localhost";
-$dbName="it490db";
-$userDB="joe";
-$passDB="tusk";
+$db = new PDO('sqlite:it490.sqlite');
+
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>

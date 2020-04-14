@@ -2,6 +2,7 @@
 //The header here includes all the html code, session, and the navbar. Just including this will make new pages way easier to create.
 session_start();
 $un = $_SESSION['user']['name'];
+$id = $_SESSION['user']['id'];
 if($_SESSION['logged'] != true){
     header("Location: login.php");
 }
@@ -41,7 +42,7 @@ if($_SESSION['logged'] != true){
 </head>
 <body class="py-4">
 <div class="container">
-    welcome <?php echo $un ?>!
+    welcome <?php echo $un ?>! User ID: <?php echo $id ?>
     <br>
-    <a href="logout.php">logout?</a>
+    <a href="dashboard.php">Home</a>/<a href="movielist.php">View Movie List</a>/<a href="profile.php">Profile</a>/<a href="logout.php">Logout</a>
     <br>

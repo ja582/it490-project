@@ -11,8 +11,8 @@ function registerMessage($username, $hash){
 		$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "hash" => $hash ); //added hash. server listens for "register" now for registering
 
 	}
-	
-	
+
+
 
 	$response = $client->send_request($msg);
 
@@ -21,7 +21,7 @@ function registerMessage($username, $hash){
 	echo "\n\n";
 
 	if(isset($argv[0]))
-	echo $argv[0] . " END".PHP_EOL;
+		echo $argv[0] . " END".PHP_EOL;
 }
 
 function loginMessage($username, $password){
@@ -31,10 +31,10 @@ function loginMessage($username, $password){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Login", "type"=>"login", "username" => $username, "password" => $password); 
+		$msg = array("message"=>"Login", "type"=>"login", "username" => $username, "password" => $password);
 		//server listens for "login" in processor function then points to login function
 	}
-	
+
 	$response = $client->send_request($msg);
 
 	echo "client received response: " . PHP_EOL;
@@ -42,8 +42,46 @@ function loginMessage($username, $password){
 	echo "\n\n";
 
 	if(isset($argv[0]))
-	echo $argv[0] . " END".PHP_EOL;
+		echo $argv[0] . " END".PHP_EOL;
 }
 
+function createMovieMessage($movie_title, $score, $uid){
+
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Movie", "type"=>"create_list", "movie_title" => $movie_title, "score" => $score, "uid" => $uid);
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+}
+function displayMovieList($uid){
+
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Display List", "type"=>"display_list",  "uid" => $uid);
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+}
 ?>
 

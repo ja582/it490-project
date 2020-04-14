@@ -1,52 +1,82 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-require("config.php");
-$conn_string = "mysql:host=$host;dbname=$dbName;charset=utf8mb4";
+require_once("config.php");
+
 
 function loginMessage($username, $password){
-	global $conn_string;
-	global $userDB, $passDB;
+	global $db;
 
-
-	$db = new PDO($conn_string, $userDB, $passDB);
-	$stmt = $db->prepare("select id, username, password from `Users` where username = :username LIMIT 1");
-	$usernp = array(":username"=>$username);
-	$stmt->execute($usernp);
+	$stmt = $db->prepare('SELECT id, username, password FROM Users WHERE username = :username LIMIT 1');
+	$stmt->bindParam(':username', $username);
+	$stmt->execute();
 	$results = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if(password_verify($password, $results['password'])){ //comparing plaintext and hash
-		$stmt->execute(array(":username"=> $username));
-		if($results && count($results) > 0){
-			$userSes = array("name"=> $results['username']);
-			return json_encode($userSes);
+	if($results){
+		$userpass = $results['password'];
+		if(password_verify($password, $userpass)){ //comparing plaintext and hash
+			$stmt->bindParam(':username', $username);
+			$stmt->execute();
+			if($results && count($results) > 0){
+				$userSes = array("name"=> $results['username'], "id"=> $results['id']);
+				return json_encode($userSes);
+			}
+			return true;
+			echo "Logged in (Console)";
 		}
-		return true;
-		echo "Logged in (Console)";
-	}
-	else{
-		echo "invalid password";
+		else{
+			return false;
+			echo "invalid password";
+		}
 	}
 }
 
 function registerMessage($username, $hash){
-	global $conn_string;
-	global $userDB, $passDB;
-	$db = new PDO($conn_string, $userDB, $passDB);
+	global $db;
 
 	//checking if username exists already
-	$usncheck = $db->prepare("SELECT * FROM `Users` where username = :username");
-	$usernp = array(":username"=>$username);
-	$usncheck->execute($usernp);
+	$usncheck = $db->prepare('SELECT * FROM Users where username = :username');
+	$usncheck->bindParam(':username', $username);
+	$usncheck->execute();
 	$results = $usncheck->fetch(PDO::FETCH_ASSOC);
 	if($results && count($results) > 0){
 		echo "Username already exists";
 		return false;
 	}
 	//check passed, inserts user
-	$stmt = $db->prepare("INSERT into `Users` (`username`, `password`) VALUES(:username, :password)");
-	$r = $stmt->execute(array(":username"=> $username, ":password"=> $hash));
+	$quest = 'INSERT INTO Users (username, password) VALUES (:username, :password)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':username', $username);
+	$stmt->bindParam(':password', $hash);
+	$stmt->execute();
+}
+
+function createMovieMessage($movie_title, $score, $uid){
+	global $db;
+
+	$quest = 'INSERT INTO user_movies (movie_title, score, user_id) VALUES (:movie_title, :score, :user_id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':movie_title', $movie_title);
+	$stmt->bindParam(':score', $score);
+	$stmt->bindParam(':user_id', $uid);
+	$stmt->execute();
+}
+
+function displayMovieList($uid){
+	global $db;
+
+	$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':user_id', $uid);
+	$stmt->execute();
+	$results = $stmt->fetchAll();
+
+	return json_encode($results);
 }
 
 function request_processor($req){
@@ -62,10 +92,10 @@ function request_processor($req){
 			return loginMessage($req['username'], $req['password']);
 		case "register":
 			return registerMessage($req['username'], $req['hash']);
-		case "validate_session":
-			return validate($req['session_id']);
-		case "echo": //DONT NEED
-			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
+		case "create_list":
+			return createMovieMessage($req['movie_title'], $req['score'], $req['uid']);
+		case "display_list":
+			return displayMovieList($req['uid']);
 	}
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");
