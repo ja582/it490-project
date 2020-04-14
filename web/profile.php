@@ -1,5 +1,12 @@
 <?php
 include_once("blade/header.php");
+
+$response = displayMovieList($id);
+if($response == false){
+    echo "Response is false!";
+}
+
+$list = json_decode($response, true);
 ?>
 
     <head>
