@@ -130,6 +130,40 @@ function displayFavMovie($newUser){
     $mysqli->close();
 }
 
+function apiRequest($api){
+    
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/$api",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "x-rapidapi-host: imdb-internet-movie-database-unofficial.p.rapidapi.com",
+            "x-rapidapi-key: d06d55bac0msh0005fcfba20f964p1ddd4cjsndc27523d1d46",
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $result = json_encode($response);
+
+    curl_close($curl);
+
+    return $result;
+
+   // if ($err) {
+     //   echo "cURL Error #:" . $err;
+  //  } else {
+   //     echo $result;
+  //  }
+
+
+}
 
 function displayReviews($newUser){
 
@@ -164,6 +198,8 @@ function request_processor($req){
 	//Handle message type
 	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
+		case "apirequest":
+           		 return apirequest($req['api']);
 		case "displayReview":
            		 return displayReviews($req['newUser']);
         	case "displayFav":
