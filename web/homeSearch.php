@@ -1,3 +1,21 @@
+
+<?php
+
+session_start();
+
+if ($_SESSION['logged'] != true){
+    echo "not logged in";
+}
+else{
+    $newUser = $_SESSION['user']['name'];
+}
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,9 +28,9 @@
         
             <h1> Search for movies and actors</h1>
             <div class="form-box">
-                <form>
-                <input type="text" class="search-field movie" placeholder="movie, actor, ..">
-                <button class="search-btn" type="button">Search</button>
+                <form action="apiRequestHandler.php" method="POST">
+                <input type="text" class="search-field movie" id="api" name="api" placeholder="movie, actor, ..">
+                <button name="submitButton" class="search-btn" type="submit">Search</button>
 
                 </form>
             </div>
@@ -22,7 +40,7 @@
         
 
 
-
+        <a href="profile.php"><button class="profile" name="profile"/>Return to profile</button></a>
     </div>
 
 
