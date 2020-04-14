@@ -32,7 +32,16 @@ $list = json_decode($response, true);
     </div>
     <div class="middlepane">
         <h1>Movie Lists<h1>
-
+            <?php foreach($list as $index=>$row): ?>
+    <div class="row">
+        <div class="col">
+            <?php echo "Title ".$row['movie_title'];?>
+        </div>
+        <div class="col">
+            <?php echo "Score ".$row['score'];?>
+        </div>
+    </div>
+<?php endforeach;?>
     </div>
     <div class="rightpane">
         <h1>Movie Reviews</h1></div>
