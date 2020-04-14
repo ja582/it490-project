@@ -90,6 +90,30 @@ function displayReviews($newUser){
 
 }
 
+function apiRequest($api){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"API Request", "type"=>"apiRequest", "api" => $api);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+
+
+}
+
 
 function loginMessage($username, $password){
 
