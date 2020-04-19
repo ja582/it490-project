@@ -79,6 +79,24 @@ function displayMovieList($uid){
 	return json_encode($results);
 }
 
+function echoWriteMessage($write){
+	global $db;
+	echo "Received the echo.";
+	$toWrite = json_decode($write, true);
+	echo "To write: ".$toWrite;
+	if($toWrite == null){
+		echo "Message to write is null!";
+		exit;
+	}else{
+		$quest = 'INSERT INTO letters (content) VALUES (:content)';
+		$stmt = $db->prepare($quest);
+		$stmt->bindParam(':content', $toWrite);
+		$stmt->execute();
+		echo "Wrote the echo";
+	}
+
+}
+
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
 	echo "<pre>" . var_dump($req) . "</pre>";
@@ -96,6 +114,8 @@ function request_processor($req){
 			return createMovieMessage($req['movie_title'], $req['score'], $req['uid']);
 		case "display_list":
 			return displayMovieList($req['uid']);
+		case "write_message":
+			return echoWriteMessage($req['wrt']);
 	}
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");

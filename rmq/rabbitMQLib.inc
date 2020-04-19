@@ -37,7 +37,7 @@ class rabbitMQServer
 	}
 	function get_connection(){
 		return new AMQPStreamConnection($this->BROKER_HOST, $this->BROKER_PORT,
-					$this->USER, $this->PASSWORD);
+			$this->USER, $this->PASSWORD);
 	}
 	function process_message($req){
 		echo "processing message \n";
@@ -79,7 +79,7 @@ class rabbitMQServer
 		catch(Exception $e)
 		{
 			// ampq throws exception if get fails...
-            echo "error: rabbitMQServer: process_message: exception caught: ".$e;
+			echo "error: rabbitMQServer: process_message: exception caught: ".$e;
 		}
 		// message does not require a response, send ack immediately
 		$body = $msg->body;
@@ -100,7 +100,7 @@ class rabbitMQServer
 			echo "Consuming queue\n";
 			$channel->basic_qos(null, 1, null);
 			$channel->basic_consume($this->queue, '',
-			false, true, false, false, array($this, 'process_message'));
+				false, true, false, false, array($this, 'process_message'));
 
 			// Loop as long as the channel has callbacks registered
 			while (count($this->conn_queue->callbacks) && $this->conn_queue->is_consuming())
@@ -150,13 +150,13 @@ class rabbitMQClient
 	}
 	function get_connection(){
 		return new AMQPStreamConnection($this->BROKER_HOST, $this->BROKER_PORT,
-					$this->USER, $this->PASSWORD);
+			$this->USER, $this->PASSWORD);
 	}
 	function process_response($response){
 		$uid = $response->get('correlation_id');
 		if (!isset($this->response_queue[$uid])){
-		  echo  "unknown uid\n";
-		  return true;
+			echo  "unknown uid\n";
+			return true;
 		}
 		$this->channel->basic_ack($response->get('delivery_tag'));
 
@@ -173,7 +173,7 @@ class rabbitMQClient
 		$conn = $this->get_connection();
 		$this->channel = $conn->channel();
 		$this->callback_queue = $this->queue . '.response';
-		$this->channel->queue_declare($this->callback_queue, false, false, true, false);
+		$this->channel->queue_declare($this->callback_queue, false, false, false, false);
 		/*list($this->callback_queue, ,) = $this->channel->queue_declare(
 				"",
 				false,
@@ -182,7 +182,7 @@ class rabbitMQClient
 				false
 			);*/
 		$this->channel->basic_consume($this->callback_queue, '', false, true, false, false,
-		array($this, 'process_response'));
+			array($this, 'process_response'));
 	}
 	function send_request($message){
 		$uid = uniqid();
@@ -193,9 +193,9 @@ class rabbitMQClient
 			//create message and properties
 
 			$msg = new AMQPMessage($json_message, array(
-				'correlation_id'=> $this->correlation_id,
-				'content_type'=>'application/json',
-				'reply_to' => $this->callback_queue)
+					'correlation_id'=> $this->correlation_id,
+					'content_type'=>'application/json',
+					'reply_to' => $this->callback_queue)
 			);
 
 			echo "sending message\n";
@@ -215,10 +215,10 @@ class rabbitMQClient
 		}
 	}
 	/**
-	  @brief send a one-way message to the server.  These are
-	  auto-acknowledged and give no response.
-	  @param message the body of the request.  This must make sense to the
-	  server
+	@brief send a one-way message to the server.  These are
+	auto-acknowledged and give no response.
+	@param message the body of the request.  This must make sense to the
+	server
 	 */
 	function publish($message)
 	{//TODO update
