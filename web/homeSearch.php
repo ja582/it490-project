@@ -30,7 +30,7 @@ else{
             <div class="form-box">
                 <form action="apiRequestHandler.php" method="POST">
                 <input type="text" class="search-field movie" id="api" name="api" placeholder="movie, actor, ..">
-                <button name="submitButton" class="search-btn" type="submit">Search</button>
+                <button class="search-btn" type="submit">Search</button>
 
                 </form>
             </div>
