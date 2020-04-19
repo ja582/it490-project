@@ -25,6 +25,20 @@ if($response==false){
     $apiResult=json_decode($response, true);
 
     echo $apiResult;
+    
+    foreach($apiResult["titles"] as $movies){
+        echo $movies["title"];
+    
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo ('<img height="200px" src"' .$movies['image']. '">');
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+        
+    }
 
 
 }
