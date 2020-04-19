@@ -154,7 +154,7 @@ function apiRequest($api){
 
     curl_close($curl);
 
-    return $result;
+    return $response;
 
    // if ($err) {
      //   echo "cURL Error #:" . $err;
