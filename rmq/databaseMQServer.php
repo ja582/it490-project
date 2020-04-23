@@ -97,6 +97,18 @@ function echoWriteMessage($write){
 
 }
 
+function apiWriteMessage($apiReq){
+	global $db;
+
+	echo "Received the API request";
+	$toWriteAPI = json_decode($apiReq, true);
+	if($toWriteAPI == null){
+		echo "API is null!";
+	}else{
+		echo "To write: ".$toWriteAPI;
+	}
+}
+
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
 	echo "<pre>" . var_dump($req) . "</pre>";
@@ -105,6 +117,7 @@ function request_processor($req){
 	}
 	//Handle message type
 	$type = $req['type']; //takes messsage array and puts it into req[]
+	echo $type;
 	switch($type){
 		case "login":
 			return loginMessage($req['username'], $req['password']);
@@ -116,7 +129,8 @@ function request_processor($req){
 			return displayMovieList($req['uid']);
 		case "write_message":
 			return echoWriteMessage($req['wrt']);
-	}
+		case "write_api":
+			return apiWriteMessage($req['write_req']);	}
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");
 }
