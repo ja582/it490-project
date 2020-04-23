@@ -7,7 +7,7 @@ sudo apt-get install php-mbstring
 sudo apt-get install composer
 sudo apt-get install php-bcmath
 composer require php-amqplib/php-amqplib
-sudo apt-get install rabbitmq-server
+
 
 cd /var/www/html
 git clone https://github.com/ja582/it490-project.git
