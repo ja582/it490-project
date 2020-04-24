@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt install php
+sudo apt install curl
 sudo apt install php-mysqli
 sudo apt install git
 sudo apt install php-mbstring
