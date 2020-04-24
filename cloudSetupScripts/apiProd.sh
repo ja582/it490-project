@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 sudo apt install php
 sudo apt install curl
 sudo apt install php-mysqli
