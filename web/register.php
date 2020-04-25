@@ -1,39 +1,3 @@
-<?php
-ini_set('display_errors',1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
-
-if(isset($_POST['submitButton'])){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirm = $_POST['confirmPassword'];
-    if($password != $confirm)
-    {
-        echo "Passwords dont match";
-        exit();
-    }
-
-    if ($username != "" && $password != ""){
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        $rabbitResponse = registerMessage($username, $hash);
-
-        if($rabbitResponse==false){
-            echo "account already created";
-
-        }else{
-
-            echo "Account is created";
-            header("Location: login.php");
-
-        }
-    }else{
-        echo "Nothing entered";
-    }
-
-}
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -43,13 +7,9 @@ if(isset($_POST['submitButton'])){
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Registration</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -59,7 +19,6 @@ if(isset($_POST['submitButton'])){
             -ms-user-select: none;
             user-select: none;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;

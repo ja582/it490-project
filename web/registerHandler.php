@@ -13,16 +13,13 @@ $rabbitResponse = registerMessage($username,$hash); //registerMessage in RabbitM
 
 if($rabbitResponse==false){
     echo "account already created";
+    header("Location: registerError.php");
 
 }else{
 
     echo "Account is created";
+    header("Location: login.php");
 
 }
 
-//use this to also point to login.php after the user registers. Header()?????????
-
-
-
 ?>
-
