@@ -11,9 +11,6 @@ function registerMessage($username, $hash){
 		$msg = array("message"=>"Register", "type"=>"register", "username" => $username, "hash" => $hash ); //added hash. server listens for "register" now for registering
 
 	}
-	
-	
-
 	$response = $client->send_request($msg);
 
 	echo "client received response: " . PHP_EOL;
@@ -44,6 +41,91 @@ function loginMessage($username, $password){
 	if(isset($argv[0]))
 	echo $argv[0] . " END".PHP_EOL;
 }
+
+function movieFavMessage($newUser,$movieText){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Fav movie", "type"=>"favMovie", "newUser" => $newUser, "movieText" => $movieText );
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+}
+
+function displayFavMovie($newUser){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Display Fav", "type"=>"displayFav", "newUser" => $newUser);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+}
+
+function displayReviews($newUser){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Display Review", "type"=>"displayReview", "newUser" => $newUser);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+}
+
+function apiRequest($search){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"API Request", "type"=>"apiRequest", "api" => $search);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+}
+
 
 ?>
 

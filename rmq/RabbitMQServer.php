@@ -68,9 +68,81 @@ function registerMessage($username, $hash){
 		echo "account being created";
         return true;
 	}
-
 }
 
+function displayFavMovie($newUser){
+    $host = 'localhost';
+    $user = 'keo6';
+    $pass = 'Foobar123!';
+    $db = 'IT490';
+    $mysqli = new mysqli($host,$user,$pass,$db);
+
+    if ($mysqli->connect_error){
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+
+    $result = $mysqli->query("SELECT * FROM favoriteMovies WHERE username = '$newUser'");
+    $favs = array();
+    if (mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)){
+            $favs[] = $row;
+        }
+        return json_encode($favs);
+    }
+    $mysqli->close();
+}
+
+function apiRequest($search){
+    
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/$search",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "x-rapidapi-host: imdb-internet-movie-database-unofficial.p.rapidapi.com",
+            "x-rapidapi-key: d06d55bac0msh0005fcfba20f964p1ddd4cjsndc27523d1d46",
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $result = json_encode($response);
+
+    curl_close($curl);
+
+    return $response;
+}
+
+function displayReviews($newUser){
+
+    $host = 'localhost';
+    $user = 'keo6';
+    $pass = 'Foobar123!';
+    $db = 'IT490';
+    $mysqli = new mysqli($host,$user,$pass,$db);
+
+    if ($mysqli->connect_error){
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    $result = $mysqli->query("SELECT * FROM reviews WHERE username = '$newUser'");
+    $reviews = array();
+    if(mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)){
+            $reviews[] = $row;
+        }
+        return json_encode($reviews);
+    }
+    $mysqli->close();
+
+}
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
@@ -81,6 +153,14 @@ function request_processor($req){
 	//Handle message type
 	$type = $req['type']; //takes messsage array and puts it into req[]
 	switch($type){
+		case "apirequest":
+           		 return apirequest($req['api']);
+		case "displayReview":
+           		 return displayReviews($req['newUser']);
+        	case "displayFav":
+           		 return displayFavMovie($req['newUser']);
+		case "favMovie":
+            		return movieFavMessage($req['newUser'], $req['movieText']);
 		case "login":
 			return loginMessage($req['username'], $req['password']);
 		case "register":

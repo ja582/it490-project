@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit029f22047448b3ac82507a5c51580cf5
 {
+    public static $files = array (
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpseclib\\' => 10,
+        ),
         'P' => 
         array (
             'PhpAmqpLib\\' => 11,
@@ -14,6 +22,10 @@ class ComposerStaticInit029f22047448b3ac82507a5c51580cf5
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpseclib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
         'PhpAmqpLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
