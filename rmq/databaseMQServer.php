@@ -103,9 +103,31 @@ function apiWriteMessage($apiReq){
 	echo "Received the API request";
 	$toWriteAPI = json_decode($apiReq, true);
 	if($toWriteAPI == null){
+		//Checks if API is null (Happened sometimes when testing)
 		echo "API is null!";
+		return false;
 	}else{
-		echo "To write: ".$toWriteAPI;
+		//Looping to go through each movie in the JSON Array
+		foreach($toWriteAPI["titles"] as $movies) {
+			$title = $movies["title"];
+			$img = $movies["image"];
+			$mid = $movies["id"];
+			//Replaces the @ symbols in the posters
+			if (strpos($img, '@@') == true) {
+				$nimg = str_replace("@@", "", $movies["image"]);
+			}else{
+				$nimg = str_replace("@", "", $movies["image"]);
+			}
+			//Inserts called movies into DB
+			$quest = 'INSERT INTO movies (title, poster, imdb_id) VALUES (:title, :poster, :imdb_id)';
+			$stmt = $db->prepare($quest);
+			$stmt->bindParam(':title', $title);
+			$stmt->bindParam(':img', $nimg);
+			$stmt->bindParam(':imdb_id', $mid);
+			$stmt->execute();
+			//Title has been inserted
+			echo "inserted ".$title;
+		}
 	}
 }
 
