@@ -8,5 +8,5 @@ sudo rabbitmqctl set_permissions -p / projectDev ".*" ".*" ".*"
 sudo rabbitmqctl add_user projectQA projectQA
 sudo rabbitmqctl set_permissions -p / projectQA ".*" ".*" ".*"
 
-sudo rabbitmqctl add_user projectProd projectQA
+sudo rabbitmqctl add_user projectProd projectProd
 sudo rabbitmqctl set_permissions -p / projectProd ".*" ".*" ".*"
