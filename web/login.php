@@ -1,17 +1,5 @@
 <?php
-require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
-if(isset($_POST['submitButton'])){
-    try{
-        $username - $_POST['username'];
-        $password - $_POST['password'];
-
-        $rabbitRespond = loginMessage($username, $password);
-    }
-    catch(Exception $e){
-        echo $e->getMessage();
-    }
-}
 ?>
 
 <!doctype html>
