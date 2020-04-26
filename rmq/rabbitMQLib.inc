@@ -198,7 +198,7 @@ class rabbitMQClient
 				'reply_to' => $this->callback_queue)
 			);
 
-			echo "sending message\n";
+		//	echo "sending message\n";
 
 			$this->channel->basic_publish($msg, '', $this->queue);
 			$this->response_queue[$uid] = "waiting";
