@@ -26,6 +26,11 @@ if($response==false){
 
     echo $apiResult;
     
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    
     foreach($apiResult["titles"] as $movies){
         echo $movies["title"];
     
