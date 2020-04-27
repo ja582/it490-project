@@ -79,14 +79,39 @@ function displayMovieList($uid){
 	return json_encode($results);
 }
 
-function movieFavMessage($newUser, $movieText){
+function movieReviewMessage($uid, $review){
+	global $db;
 
+	$quest = 'INSERT INTO user_reviews (review, user_id) VALUES (:review, :user_id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':review', $review);
+	$stmt->bindParam(':user_id', $uid);
+	$stmt->execute();
 }
 
-function displayFavMovie($newUser){
+function displayReviews($uid){
+	global $db;
 
+	$quest = 'SELECT * FROM user_reviews WHERE user_id = (:user_id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':user_id', $uid);
+	$stmt->execute();
+	$reviews = $stmt->fetchAll();
+
+	return json_encode($reviews);
 }
 
+function displayFavMovie($uid){
+	global $db;
+
+	$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id) LIMIT 10';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':user_id', $uid);
+	$stmt->execute();
+	$favs = $stmt->fetchAll();
+
+	return json_encode($favs);
+}
 
 function echoWriteMessage($write){
 	global $db;
@@ -161,7 +186,17 @@ function request_processor($req){
 		case "write_message":
 			return echoWriteMessage($req['wrt']);
 		case "write_api":
-			return apiWriteMessage($req['write_req']);	}
+			return apiWriteMessage($req['write_req']);
+		case "displayFav":
+			return displayFavMovie($req['uid']);
+		case "favMovie":
+			return movieFavMessage($req['uid'], $req['movieText']);
+		case "review":
+			return movieReviewMessage($req['uid'], $req['review']);
+		case "displayReview":
+			return displayReviews($req['uid']);
+	}
+
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");
 }

@@ -122,5 +122,97 @@ function apiRequest($api){
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
 }
+
+function movieFavMessage($uid, $movieText){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Fav movie", "type"=>"favMovie", "uid" => $uid, "movieText" => $movieText);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+}
+
+function displayFavMovie($uid){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Display Fav", "type"=>"displayFav", "uid" => $uid);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+}
+
+function displayReviews($uid){
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Display Review", "type"=>"displayReview", "uid" => $uid);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+}
+
+function movieReviewMessage($uid, $review){
+
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Review movie", "type"=>"review", "uid" => $uid, "review" => $review);
+
+	}
+
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
+
+
+
+
+
+}
 ?>
 
