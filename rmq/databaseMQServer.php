@@ -79,6 +79,15 @@ function displayMovieList($uid){
 	return json_encode($results);
 }
 
+function movieFavMessage($newUser, $movieText){
+
+}
+
+function displayFavMovie($newUser){
+
+}
+
+
 function echoWriteMessage($write){
 	global $db;
 	echo "Received the echo.";
