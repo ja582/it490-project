@@ -6,8 +6,7 @@ $query =   "CREATE TABLE IF NOT EXISTS Users(id INTEGER PRIMARY KEY AUTOINCREMEN
             CREATE TABLE IF NOT EXISTS movies(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, poster TEXT, imdb_id TEXT); 
             CREATE TABLE IF NOT EXISTS user_movies(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, movie_title TEXT, score INTEGER, FOREIGN KEY(user_id) REFERENCES Users(id)); 
             CREATE TABLE IF NOT EXISTS favorite_movies(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, movie_title TEXT, FOREIGN KEY(user_id) REFERENCES Users(id)); 
-            CREATE TABLE IF NOT EXISTS user_reviews(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, review TEXT, FOREIGN KEY(user_id) REFERENCES Users(id)); 
-            INSERT INTO Users (username, password) VALUES ("test", "$2y$10$hY13jW2NWn0Oi.iTeJPTo.40uVKzwImgqRCjClKKaRPP4pC7/vyWW")";
+            CREATE TABLE IF NOT EXISTS user_reviews(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, review TEXT, FOREIGN KEY(user_id) REFERENCES Users(id))";
 
 $db->exec($query);
 
