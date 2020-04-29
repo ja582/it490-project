@@ -3,6 +3,7 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once("blade/header.php");
+require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 //Displaying movie lists
 $response = displayMovieList($id);
 $responseA = displayFavMovie($id);
