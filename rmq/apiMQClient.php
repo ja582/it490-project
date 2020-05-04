@@ -1,11 +1,11 @@
 <?php
 require_once('path.inc');
-require_once('api_host_info.inc');
+require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 function apiRequest($api){
 
-    $client = new RabbitMQClient('testRabbitMQ.ini', 'apiServer');
+    $client = new RabbitMQClient('apiRabbitMQ.ini', 'testServer');
     if(isset($argv[1])){
         $msg = $argv[1];
     }

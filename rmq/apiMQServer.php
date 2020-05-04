@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once('path.inc');
-require_once('api_host_info.inc');
+require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 
@@ -72,7 +72,7 @@ function request_processor($req){
         "message" => "Server received request and processed it");
 }
 
-$server = new rabbitMQServer("testRabbitMQ.ini", "sampleServer");
+$server = new rabbitMQServer("apiRabbitMQ.ini", "testServer");
 
 echo "Rabbit MQ Server Start" . PHP_EOL;
 $server->process_requests('request_processor');
