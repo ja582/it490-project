@@ -184,7 +184,7 @@ function apiWriteMessage($apiReq, $score, $uid){
 function displayApiDB($uid){
 	global $db;
 
-	$quest = 'SELECT * FROM movies';
+	$quest = 'SELECT * FROM movies ORDER BY title ASC';
 	$stmt = $db->prepare($quest);
 	$stmt->execute();
 	$apiList = $stmt->fetchAll();

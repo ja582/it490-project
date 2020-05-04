@@ -67,6 +67,7 @@ if(isset($_POST['submitButton'])){
         }
     </style>
     <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
 
 </head>
 <body class="text-center">

@@ -27,14 +27,13 @@ if(isset($_POST['submitButton'])){
             echo "adding review failed";
         }else{
             echo "review added";
-            header("location: profile.php");
         }
     }
     catch(Exception $e){
         echo $e->getMessage();
     }
 }
-
+$x = 1;
 ?>
 
 <head>
@@ -50,18 +49,13 @@ if(isset($_POST['submitButton'])){
         <h2>Favorite Movies</h2>
         <p>
             <?php foreach($favList as $index=>$row): ?>
-        <div class="row">
-            <div class="col">
                 <?php echo $row['movie_title'];?>
-            </div>
-        </div>
-        <?php endforeach;?>
+            <?php endforeach;?>
         </p>
     </div>
     <div class="col">
         <h2>Movie List</h2>
         <p>
-            <?php foreach($list as $index=>$row): ?>
         <table class="table table-sm">
             <thead>
             <tr>
@@ -70,19 +64,26 @@ if(isset($_POST['submitButton'])){
             </tr>
             </thead>
             <tbody>
-            <tr><td><?php echo $row['movie_title'];?></td></tr>
-            <tr><td><?php echo $row['score'];?></td></tr>
+            <?php foreach($list as $index=>$row):?>
+                <tr>
+                    <?php echo "<td>".$row['movie_title']."</td>";?>
+                    <?php echo "<td>".$row['score']."</td>";?>
+                </tr>
+            <?php endforeach;?>
             </tbody>
         </table>
-        <?php endforeach;?>
         </p>
     </div>
     <div class="col">
         <h2>Movie Reviews</h2>
         <p>
-
-        <form class="form-signin" method="POST" action="#" target="hiddenFrameReview">
+            <?php foreach($reviewList as $index=>$row): ?>
+                <?php echo $row['review'];?>
+            <?php endforeach;?>
+        <br>
+        <form class="form" method="POST" action="#">
             <input name="review" type="text" class="form-control" placeholder="write your review"/>
+            <br>
             <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
         </form>
         </p>
