@@ -103,14 +103,14 @@ function echoMessage($echo){
 		echo $argv[0] . " END".PHP_EOL;
 }
 
-function apiRequest($api){
+function apiWriteMessage($apiReq, $score, $uid){
 
 	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"API Request", "type"=>"api_send",  "api" => $api);
+		$msg = array("message"=>"API Written", "type"=>"write_api",  "apiReq" => $apiReq, "score" => $score, "uid" => $uid);
 	}
 
 	$response = $client->send_request($msg);
