@@ -115,15 +115,10 @@ function displayFavMovie($uid){
 
 function apiWriteMessage($apiReq, $score, $uid){
 	global $db;
-
-	if($score && $uid == null){
-		echo "Score and User ID is null!";
-		echo "\n\n";
-		return false;
-	}
 	echo "Received the API request";
 	echo "\n\n";
-	$recAPI = json_decode($apiReq, true);
+	$apiReq = json_decode($apiReq, true);
+	$recAPI = $apiReq;
 	if($recAPI == null){
 		//Checks if API is null (Happened sometimes when testing)
 		echo "API Request is null!";
@@ -151,9 +146,7 @@ function apiWriteMessage($apiReq, $score, $uid){
 				echo "\n\n";
 				$quest = 'INSERT INTO user_movies (movie_title, score, user_id) VALUES (:movie_title, :score, :user_id)';
 				$stmt = $db->prepare($quest);
-				$stmt->bindParam(':movie_title', $title);
-				$stmt->bindParam(':score', $score);
-				$stmt->bindParam(':user_id', $uid);
+				createMovieMessage($title, $score, $uid);
 				$stmt->execute();
 				echo "Inserted the movie '".$title."' into user #".$uid." list!";
 				echo "\n\n";
@@ -219,7 +212,7 @@ function request_processor($req){
 		case "display_list":
 			return displayMovieList($req['uid']);
 		case "write_api":
-			return apiWriteMessage($req['write_req'], $req['score'], $req['uid']);
+			return apiWriteMessage($req['apiReq'], $req['score'], $req['uid']);
 		case "displayFav":
 			return displayFavMovie($req['uid']);
 		case "favMovie":
