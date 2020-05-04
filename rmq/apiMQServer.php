@@ -6,12 +6,20 @@ error_reporting(E_ALL);
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-require('/home/joeapi/apiproject/rmq/apiClient.php');
+
 
 function apiRequest($apiReq){
+    //Checks the User's input for spaces and any other special characters, so it maybe properly inserted.
+    if (strpos($apiReq, ' ') == true) {
+        $nApiReq = str_replace(" ", "%2520", $apiReq);
+    }else{
+        $nApiReq = $apiReq;
+    }
+    //Check passed, going to api
     $curl = curl_init();
 
-    curl_setopt_array($curl, array(CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/$apiReq",
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/$nApiReq",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_ENCODING => "",
@@ -21,41 +29,42 @@ function apiRequest($apiReq){
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
             "x-rapidapi-host: imdb-internet-movie-database-unofficial.p.rapidapi.com",
-            "x-rapidapi-key: d06d55bac0msh0005fcfba20f964p1ddd4cjsndc27523d1d46",
+            "x-rapidapi-key: 5f2818331bmshceba3faa9bcb533p18e145jsned421065d22a"
         ),
     ));
 
     $response = curl_exec($curl);
-    $err = curl_error($curl);
-    $result = json_encode($response);
-    apiWriteMessage($result);
-
     curl_close($curl);
+    if($response == null){
+        echo "API is null!";
+        echo "\n\n";
+        echo "response var dump";
+        echo "\n\n";
+        echo var_dump($response);
+        return false;
+    }else{
+        echo "\n\n";
+        echo "API is not null - Sending it over to databaseMQ!";
+        echo "\n\n";
+        echo var_dump($response);
+        return $response;
+    }
 
-    echo "Encoding API";
-}
-
-function echoMessage($echo){
-    echo "Testing for echo..";
-    echo "Echo: ".$echo;
-    echo "Decoded Echo";
-    $out = json_encode($echo);
-    echoWriteMessage($out);
-    echo "Encoding echo";
 }
 
 function request_processor($req){
     echo "Received Request".PHP_EOL;
+    echo "\n\n";
     echo "<pre>" . var_dump($req) . "</pre>";
+    echo "\n\n";
     if(!isset($req['type'])){
         return "Error: unsupported message type";
     }
     //Handle message type
     $type = $req['type'];
+    echo "\n\n";
     echo $type;
     switch($type){
-        case "echo_msg":
-            return echoMessage($req['echo']);
         case "api_send":
             return apiRequest($req['api']);
     }

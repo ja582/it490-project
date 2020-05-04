@@ -113,56 +113,90 @@ function displayFavMovie($uid){
 	return json_encode($favs);
 }
 
-function echoWriteMessage($write){
+function apiWriteMessage($apiReq, $score, $uid){
 	global $db;
-	echo "Received the echo.";
-	$toWrite = json_decode($write, true);
-	echo "To write: ".$toWrite;
-	if($toWrite == null){
-		echo "Message to write is null!";
-		exit;
-	}else{
-		$quest = 'INSERT INTO letters (content) VALUES (:content)';
-		$stmt = $db->prepare($quest);
-		$stmt->bindParam(':content', $toWrite);
-		$stmt->execute();
-		echo "Wrote the echo";
+
+	if($score && $uid == null){
+		echo "Score and User ID is null!";
+		echo "\n\n";
+		return false;
 	}
-
-}
-
-function apiWriteMessage($apiReq){
-	global $db;
-
 	echo "Received the API request";
-	$toWriteAPI = json_decode($apiReq, true);
-	if($toWriteAPI == null){
+	echo "\n\n";
+	$recAPI = json_decode($apiReq, true);
+	if($recAPI == null){
 		//Checks if API is null (Happened sometimes when testing)
-		echo "API is null!";
+		echo "API Request is null!";
+		echo "\n\n";
 		return false;
 	}else{
 		//Looping to go through each movie in the JSON Array
-		foreach($toWriteAPI["titles"] as $movies) {
-			$title = $movies["title"];
-			$img = $movies["image"];
-			$mid = $movies["id"];
-			//Replaces the @ symbols in the posters
-			if (strpos($img, '@@') == true) {
-				$nimg = str_replace("@@", "", $movies["image"]);
+		if(is_array($recAPI)){
+			//Setting variables for later insertion
+			$title = $recAPI["title"];
+			$img = $recAPI["poster"];
+			$mid = $recAPI["id"];
+			$intYear = intval($recAPI["year"]);
+			$plot = $recAPI["plot"];
+			$length = $recAPI["length"];
+			$intRating = intval($recAPI["rating"]);
+			//Checking if movie is already in movies table
+			$moviecheck = $db->prepare('SELECT * FROM movies where title = :title');
+			$moviecheck->bindParam(':title', $title);
+			$moviecheck->execute();
+			$results = $moviecheck->fetch(PDO::FETCH_ASSOC);
+			if($results && count($results) > 0){
+				//Movie already exists, but will write into list nonetheless
+				echo "Movie already exists in database.. adding it to user's list.";
+				echo "\n\n";
+				$quest = 'INSERT INTO user_movies (movie_title, score, user_id) VALUES (:movie_title, :score, :user_id)';
+				$stmt = $db->prepare($quest);
+				$stmt->bindParam(':movie_title', $title);
+				$stmt->bindParam(':score', $score);
+				$stmt->bindParam(':user_id', $uid);
+				$stmt->execute();
+				echo "Inserted the movie '".$title."' into user #".$uid." list!";
+				echo "\n\n";
+				return true;
 			}else{
-				$nimg = str_replace("@", "", $movies["image"]);
+				//Inserts called movies into DB
+				$quest = 'INSERT INTO movies (title, year, length, rating, plot, poster, imdb_id) VALUES (:title, :year, :length, :rating, :plot, :poster, :imdb_id)';
+				$stmt = $db->prepare($quest);
+				$stmt->bindParam(':title', $title);
+				$stmt->bindParam(':year', $intYear);
+				$stmt->bindParam(':length', $length);
+				$stmt->bindParam(':rating', $intRating);
+				$stmt->bindParam(':plot', $plot);
+				$stmt->bindParam(':poster', $img);
+				$stmt->bindParam(':imdb_id', $mid);
+				$stmt->execute();
+				//Title has been inserted
+				echo "Inserted the movie '".$title."'!";
+				echo "\n\n";
+				//Inserting movie into User's list
+				createMovieMessage($title, $score, $uid);
+				echo "Inserted the movie '".$title."' into user #".$uid." list!";
+				echo "\n\n";
+				return true;
 			}
-			//Inserts called movies into DB
-			$quest = 'INSERT INTO movies (title, poster, imdb_id) VALUES (:title, :poster, :imdb_id)';
-			$stmt = $db->prepare($quest);
-			$stmt->bindParam(':title', $title);
-			$stmt->bindParam(':img', $nimg);
-			$stmt->bindParam(':imdb_id', $mid);
-			$stmt->execute();
-			//Title has been inserted
-			echo "inserted ".$title;
+		}
+		else{
+			echo "Error occurred!";
+			echo "\n\n";
+			return false;
 		}
 	}
+}
+
+function displayApiDB($uid){
+	global $db;
+
+	$quest = 'SELECT * FROM movies';
+	$stmt = $db->prepare($quest);
+	$stmt->execute();
+	$apiList = $stmt->fetchAll();
+
+	return json_encode($apiList);
 }
 
 function request_processor($req){
@@ -172,7 +206,8 @@ function request_processor($req){
 		return "Error: unsupported message type";
 	}
 	//Handle message type
-	$type = $req['type']; //takes messsage array and puts it into req[]
+	$type = $req['type']; //takes message array and puts it into req[]
+	echo "\n\n";
 	echo $type;
 	switch($type){
 		case "login":
@@ -183,10 +218,8 @@ function request_processor($req){
 			return createMovieMessage($req['movie_title'], $req['score'], $req['uid']);
 		case "display_list":
 			return displayMovieList($req['uid']);
-		case "write_message":
-			return echoWriteMessage($req['wrt']);
 		case "write_api":
-			return apiWriteMessage($req['write_req']);
+			return apiWriteMessage($req['write_req'], $req['score'], $req['uid']);
 		case "displayFav":
 			return displayFavMovie($req['uid']);
 		case "favMovie":
@@ -195,6 +228,8 @@ function request_processor($req){
 			return movieReviewMessage($req['uid'], $req['review']);
 		case "displayReview":
 			return displayReviews($req['uid']);
+		case "displayApi":
+			return displayApiDB($req['uid']);
 	}
 
 	return array("return_code" => '0',
