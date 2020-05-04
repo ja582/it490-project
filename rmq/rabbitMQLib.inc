@@ -68,7 +68,7 @@ class rabbitMQServer
 					(string)json_encode($response),
 					array('correlation_id'=>$req->get('correlation_id'))
 				);
-				echo "Replying to " . $req->get('reply_to') . "\n";
+				//echo "Replying to " . $req->get('reply_to') . "\n";
 				$req->delivery_info['channel']->basic_publish(
 					$msg,
 					'',
@@ -164,7 +164,7 @@ class rabbitMQClient
 
 		$body = $response->body;
 		$payload = json_decode($body);
-		var_dump($payload);
+		//var_dump($payload);
 		if (!isset($payload)){
 			$payload = "[empty or invalid response]";
 		}
@@ -200,7 +200,7 @@ class rabbitMQClient
 					'reply_to' => $this->callback_queue)
 			);
 
-			echo "sending message\n";
+			//echo "sending message\n";
 
 			$this->channel->basic_publish($msg, '', $this->queue);
 			$this->response_queue[$uid] = "waiting";
