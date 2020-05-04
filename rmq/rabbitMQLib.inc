@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/vendor/autoload.php");
 require_once('db_host_info.inc');
+require_once('api_host_info.inc');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
