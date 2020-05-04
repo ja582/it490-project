@@ -1,10 +1,10 @@
 <?php
 require_once('path.inc');
-require_once('get_host_info.inc');
+require_once('db_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 function registerMessage($username, $hash){
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 	}
 	else{
@@ -26,7 +26,7 @@ function registerMessage($username, $hash){
 
 function loginMessage($username, $password){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -47,7 +47,7 @@ function loginMessage($username, $password){
 
 function createMovieMessage($movie_title, $score, $uid){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -66,7 +66,7 @@ function createMovieMessage($movie_title, $score, $uid){
 }
 function displayMovieList($uid){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -85,7 +85,7 @@ function displayMovieList($uid){
 }
 function echoMessage($echo){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -105,7 +105,7 @@ function echoMessage($echo){
 
 function apiWriteMessage($apiReq, $score, $uid){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -124,7 +124,7 @@ function apiWriteMessage($apiReq, $score, $uid){
 }
 
 function movieFavMessage($uid, $movieText){
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -146,7 +146,7 @@ function movieFavMessage($uid, $movieText){
 }
 
 function displayFavMovie($uid){
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -168,7 +168,7 @@ function displayFavMovie($uid){
 }
 
 function displayReviews($uid){
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -190,7 +190,7 @@ function displayReviews($uid){
 }
 
 function displayApiDB($uid){
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
@@ -213,7 +213,7 @@ function displayApiDB($uid){
 
 function movieReviewMessage($uid, $review){
 
-	$client = new RabbitMQClient('testRabbitMQ.ini', 'testServer');
+	$client = new RabbitMQClient('testRabbitMQ.ini', 'databaseServer');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}

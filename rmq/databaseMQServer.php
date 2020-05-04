@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once('path.inc');
-require_once('get_host_info.inc');
+require_once('db_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once("config.php");
 
@@ -70,13 +70,17 @@ function createMovieMessage($movie_title, $score, $uid){
 function displayMovieList($uid){
 	global $db;
 
-	$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id)';
-	$stmt = $db->prepare($quest);
-	$stmt->bindParam(':user_id', $uid);
-	$stmt->execute();
-	$results = $stmt->fetchAll();
+	if($uid == null){
+		return false;
+	}else{
+		$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id)';
+		$stmt = $db->prepare($quest);
+		$stmt->bindParam(':user_id', $uid);
+		$stmt->execute();
+		$results = $stmt->fetchAll();
 
-	return json_encode($results);
+		return json_encode($results);
+	}
 }
 
 function movieReviewMessage($uid, $review){
