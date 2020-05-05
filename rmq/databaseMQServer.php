@@ -107,7 +107,7 @@ function displayReviews($uid){
 function displayFavMovie($uid){
 	global $db;
 
-	$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id) LIMIT 10';
+	$quest = 'SELECT * FROM user_movies WHERE user_id = (:user_id) AND score = 10';
 	$stmt = $db->prepare($quest);
 	$stmt->bindParam(':user_id', $uid);
 	$stmt->execute();
