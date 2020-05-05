@@ -19,20 +19,7 @@ $favList = json_decode($responseA, true);
 $reviewList = json_decode($responseB, true);
 
 
-if(isset($_POST['submitButton'])){
-    try{
-        $rvw = $_POST['review'];
-        $rabbitResponse = movieReviewMessage($rvw, $id);
-        if($rabbitResponse == false){
-            echo "adding review failed";
-        }else{
-            echo "review added";
-        }
-    }
-    catch(Exception $e){
-        echo $e->getMessage();
-    }
-}
+
 $x = 1;
 ?>
 
@@ -81,11 +68,6 @@ $x = 1;
                 <?php echo $row['review'];?>
             <?php endforeach;?>
         <br>
-        <form class="form" method="POST" action="#">
-            <input name="review" type="text" class="form-control" placeholder="write your review"/>
-            <br>
-            <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
-        </form>
         </p>
     </div>
 </div>
