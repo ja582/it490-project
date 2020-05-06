@@ -2,7 +2,7 @@
 
 sudo apt install php
 sudo apt install curl
-sudo apt install php-mysqli
+sudo apt install php-curl
 sudo apt install php-mbstring
 sudo apt install composer
 sudo apt install php-bcmath
