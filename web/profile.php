@@ -1,90 +1,76 @@
 <?php
-session_start();
+ini_set('display_errors',1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include_once("blade/header.php");
+require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 
-if ($_SESSION['logged'] != true){
-    echo "not logged in";
+//Displaying movie lists
+$response = displayMovieList($id);
+$responseA = displayFavMovie($id);
+$responseB = displayReviews($id);
+
+if($response == false && $responseA == false && $responseB == false ){
+    echo "Response is false!";
 }
-else{
-    $newUser = $_SESSION['user']['name'];
-}
+
+$list = json_decode($response, true);
+$favList = json_decode($responseA, true);
+$reviewList = json_decode($responseB, true);
+
+
+
+$x = 1;
 ?>
 
-<!DOCTYPE html>
-<html>
 <head>
-    <link rel="stylesheet" href="profileStyle.css">
+    <title>User Profile</title>
     <style>
         .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
         .hideReview { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
-        .home{right:200px;}
+        .home { right:200px;}
     </style>
 </head>
-
-<body>
-
-<div class="container">
-    <div class="toppane">
-        <h1>Profile Details</h1>
-        <p> <?php echo 'Welcome ' . $newUser ?> </p>
-        <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>
-        <a href="homeSearch.php"><button class="home" name="home"/>Search Movies</button></a>
+<div class="row rounded">
+    <div class="col">
+        <h2>Favorite Movies</h2>
+        <p>
+            <?php foreach($favList as $index=>$row): ?>
+                <?php echo $row['movie_title'];?>
+            <?php endforeach;?>
+        </p>
     </div>
-    <div class="leftpane">
-        <h1>Favorite Movies</h1>
-        <form action="displayFavMoviesHandler.php" method="POST">
-        <input type="submit" value = "View all your favorite movies" id="favsRev" name = "favsRev" />
-        </form>
-        <br>
-        <br>
-        <iframe name=hiddenFrame" class="hide"></iframe>
-            <form action="favHandler.php" method="post" target="hiddenFrame">
-        <input type='text' id='movieText' name="movieText" />
-        <input type='submit' value='add to favorite movies' id='submit' name="submit" />
-            </form>
-        <script>
-            document.getElementById("submit").onclick  = function() {
-                var node = document.createElement("Li");
-                var text = document.getElementById("movieText").value;
-                var textnode=document.createTextNode(text);
-                node.appendChild(textnode);
-                document.getElementById("list").appendChild(node);
-                //document.getElementById('idea').value=null;
-
-            }
-        </script>
-        <ul id='list'></ul>
-
+    <div class="col">
+        <h2>Movie List</h2>
+        <p>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($list as $index=>$row):?>
+                <tr>
+                    <?php echo "<td>".$row['movie_title']."</td>";?>
+                    <?php echo "<td>".$row['score']."</td>";?>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+        </p>
     </div>
-    <div class="middlepane">
-        <h1>Movie Lists</h1>
-
+    <div class="col">
+        <h2>Movie Reviews</h2>
+        <p>
+            <?php foreach($reviewList as $index=>$row): ?>
+                <?php echo $row['review'];?>
+            <?php endforeach;?>
+        <br>
+        </p>
     </div>
-    <div class="rightpane">
-        <h1>Movie Reviews</h1>
-        <form action="displayReviewsHandler.php" method="POST">
-        <input type="submit" value="View all your movie reviews" id="revBut" name = "revBut" />
-        </form>
-        <br>
-        <br>
-        <iframe name=hiddenFrameReview" class="hideReview"></iframe>
-        <form action="reviewHandler.php" method="post" target="hiddenFrameReview">
-    <input type='text' id='review' name="review" placeholder="Movie Title - Review"/>
-    <input type='submit' value='add to list' id='addList' />
-        </form>
-    <script>
-        document.getElementById("addList").onclick  = function() {
-            var nodeList = document.createElement("Li");
-            var textList = document.getElementById("review").value;
-            var textnodeList=document.createTextNode(textList);
-            nodeList.appendChild(textnodeList);
-            document.getElementById("reviewList").appendChild(nodeList);
-        }
-    </script>
-    <ul id='reviewList'></ul>
-
 </div>
-
-</div>
-
-</body>
-</html>
+<?php
+include_once("blade/footer.php");
+?>
