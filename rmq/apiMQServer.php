@@ -38,15 +38,10 @@ function apiRequest($apiReq){
     if($response == null){
         echo "API is null!";
         echo "\n\n";
-        echo "response var dump";
-        echo "\n\n";
-        echo var_dump($response);
         return false;
     }else{
         echo "\n\n";
         echo "API is not null - Sending it over to databaseMQ!";
-        echo "\n\n";
-        echo var_dump($response);
         return $response;
     }
 

@@ -20,11 +20,6 @@ $reviewList = json_decode($responseB, true);
 
 <head>
     <title>User Profile</title>
-    <style>
-        .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
-        .hideReview { position:absolute; top:-1px; left:-1px; width:1px; height:1px;}
-        .home { right:200px;}
-    </style>
 </head>
 <div class="row rounded">
     <div class="col">
@@ -50,6 +45,7 @@ $reviewList = json_decode($responseB, true);
     <div class="col">
         <h2>Movie List</h2>
         <p>
+        All movies added to your list. Go <a href="listmanager.php">here</a> to edit.
         <table class="table table-sm">
             <thead>
             <tr>

@@ -42,7 +42,7 @@ if($_SESSION['logged'] != true){
 </head>
 <body class="py-4">
 <div class="container">
-    welcome <?php echo $un ?>! User ID: <?php echo $id ?>
+    Welcome <?php echo $un ?>! User ID: <?php echo $id ?>
     <br>
-    <a href="dashboard.php">Home</a> / <a href="apiSearch.php">Add to List</a> / <a href="movieReview.php"> Create a Review</a> /  <a href="profile.php">Profile</a> / <a href="moviedb.php">View Movie Database</a>
+    <a href="dashboard.php">Home</a> /  <a href="profile.php">Profile</a> / <a href="apiSearch.php">Add to Movie List</a> / <a href="movieReview.php"> Create a Review</a><a href="moviedb.php">View Movie Database</a>
     <br>

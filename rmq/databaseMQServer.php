@@ -82,13 +82,14 @@ function displayMovieList($uid){
 	}
 }
 
-function movieReviewMessage($uid, $review){
+function movieReviewMessage($uid, $review, $movie_title){
 	global $db;
 
-	$quest = 'INSERT INTO user_reviews (review, user_id) VALUES (:review, :user_id)';
+	$quest = 'INSERT INTO user_reviews (review, user_id, movie_title) VALUES (:review, :user_id, :movie_title)';
 	$stmt = $db->prepare($quest);
 	$stmt->bindParam(':review', $review);
 	$stmt->bindParam(':user_id', $uid);
+	$stmt->bindParam(':movie_title', $movie_title);
 	$stmt->execute();
 }
 
