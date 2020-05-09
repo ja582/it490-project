@@ -11,6 +11,7 @@ if($response == false ){
 }else{
     $list = json_decode($response, true);
     var_dump($list);
+    echo $list["title"];
     //$movie_title = $list['title'];
     echo "grabbed id, works";
 }
