@@ -14,7 +14,7 @@ if(isset($_POST['submitButton'])){
         if($rabbitResponse == false){
             echo "didnt work";
         }else{
-            echo "review added";
+            echo '<b><p class=\"text-success\">Review added!</p></b>';
         }
     }
     catch(Exception $e){

@@ -19,7 +19,7 @@ if(isset($_POST['submitButton'])){
             if($rabbitResponse == false){
                 echo "didnt work";
             }else{
-                echo "Movie deleted!";
+                echo '<b><p class=\"text-success\">Movie deleted!</p></b>';
             }
         }
     }

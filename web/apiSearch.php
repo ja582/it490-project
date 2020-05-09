@@ -11,14 +11,14 @@ if(isset($_POST['submitButton'])){
         $apiReq = $_POST['api'];
         $score = $_POST['score'];
         if($score > 10 or $score < 1){
-            echo "Score is either higher than 10 or lower than 1! Try again.";
+            echo '<b><p class=\"text-danger\">Score is either higher than 10 or lower than 1! Try again.</p></b>';
             return false;
         }
         $rabbitResponse = apiRequest($apiReq);
         if($rabbitResponse == false){
             echo "Movie failed to be added!";
         }else{
-            echo "Movie added!";
+            echo '<b><p class=\"text-success\">Movie added!</p></b>';
             apiWriteMessage($rabbitResponse, $score, $id);
         }
     }
