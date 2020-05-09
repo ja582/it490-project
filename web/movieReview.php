@@ -36,13 +36,13 @@ if(isset($_POST['submitButton'])){
 <h1 class="h3 mb-3 font-weight-normal">Enter in a Movie Review</h1>
 <br>
 <p>Please Select A Movie and Write a Review:</p>
-<form class="form-signin" method="POST" action="#">
-    <?php foreach($ulist as $index=>$row):?>
-        <select id="title" name="title">
-            <option value="<?php echo $row['movie_title']; ?>"><?php echo $row['movie_title']; ?></option>
-        </select>
-    <?php endforeach;?>
-    <input name="review" type="text" class="form-control" placeholder="Movie Title - Review" required/>
+<form class="form" method="POST" action="#">
+    <select id="title" name="title">
+        <?php foreach($ulist as $index=>$row):?>
+            <option value="<?php echo $row['movie_title']?>"><?php echo $row['movie_title']?></option>
+        <?php endforeach;?>
+    </select>
+    <input name="review" type="text" class="form-control" placeholder="Please write what you think of the movie." required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
 </form>
 <?php
