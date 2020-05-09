@@ -17,7 +17,7 @@ if(isset($_POST['submitButton'])){
     try{
 
         $movie_id = $_GET['movie_id'];
-        $rabbitResponse = movieReviewMessage($movie_id);
+        $rabbitResponse = listManagerDel($movie_id);
         if($rabbitResponse == false){
             echo "didnt work";
         }else{
