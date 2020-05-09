@@ -29,9 +29,7 @@ if($response == false){
         <tr>
             <th scope="col">Poster</th>
             <th scope="col">Title</th>
-            <th scope="col">Plot</th>
             <th scope="col">Year</th>
-            <th scope="col">Length</th>
             <th scope="col">More Info</th>
         </tr>
         </thead>
@@ -40,9 +38,7 @@ if($response == false){
             <tr>
                 <?php echo "<td>"."<img src=".$row['poster']." class=\"img-responsive\">"."</td>";?>
                 <?php echo "<td>".$row['title']."</td>";?>
-                <?php echo "<td>".$row['plot']."</td>";?>
                 <?php echo "<td>".$row['year']."</td>";?>
-                <?php echo "<td>".$row['length']."</td>";?>
                 <?php $movie_id = $row['id']; echo "<td><a href=\"movie.php?movie_id=".$movie_id."\">More Info</a></td>";?>
             </tr>
         <?php endforeach;?>
