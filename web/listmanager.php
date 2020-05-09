@@ -52,7 +52,7 @@ if(isset($_POST['submitButton'])){
             <br>
         <?php foreach($ulist as $index=>$row):?>
             <tr>
-                <?php echo "<td>".$row['title']."</td>";?>
+                <?php echo "<td>".$row['movie_title']."</td>";?>
                 <?php echo "<td>".$row['score']."</td>";?>
                 <input type="radio" name="movie_id" value="<?php $row['id'] ?>">
             </tr>
