@@ -18,7 +18,7 @@ if(isset($_POST['submitButton'])){
         $title = $_POST['title'];
         $rabbitResponse = movieReviewMessage($id, $review, $title);
         if($rabbitResponse == false){
-            echo "didnt work";
+            echo "Review was not added!";
         }else{
             echo '<b><p class=\"text-success\">Review added!</p></b>';
         }

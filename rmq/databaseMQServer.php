@@ -90,7 +90,7 @@ function movieReviewMessage($uid, $review, $movie_title){
 	$revieewcheck->execute();
 	$results = $revieewcheck->fetch(PDO::FETCH_ASSOC);
 	if($results && count($results) > 0){
-		return "Review already exists for this movie.";
+		return false;
 	}else{
 		$fixTitle = trim($movie_title," ");
 		$quest = 'INSERT INTO user_reviews (review, user_id, movie_title) VALUES (:review, :user_id, :movie_title)';
