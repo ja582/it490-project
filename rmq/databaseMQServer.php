@@ -86,7 +86,7 @@ function movieReviewMessage($uid, $review, $movie_title){
 	global $db;
 	$revieewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
 	$revieewcheck->bindParam(':user_id', $uid);
-	$revieewcheck->bindParam(':title', $title);
+	$revieewcheck->bindParam(':movie_title', $movie_title);
 	$revieewcheck->execute();
 	$results = $revieewcheck->fetch(PDO::FETCH_ASSOC);
 	if($results && count($results) > 0){
