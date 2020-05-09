@@ -39,7 +39,7 @@ if(isset($_POST['submitButton'])){
     <form class="form-signin" method="POST" action="#">
         <?php foreach($ulist as $index=>$row):?>
         <select id="title" name="title">
-            <option value="<?php echo $row['title']; ?>"><?php echo $row['title']; ?></option>
+            <option value="<?php echo $row['title'] ?>"><?php echo $row['title'] ?></option>
         </select>
         <?php endforeach;?>
         <input name="review" type="text" class="form-control" placeholder="Movie Title - Review" required/>
