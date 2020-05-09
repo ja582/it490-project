@@ -16,9 +16,9 @@ function registerMessage($username, $hash){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -37,9 +37,9 @@ function loginMessage($username, $password){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -57,9 +57,9 @@ function createMovieMessage($movie_title, $score, $uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -76,9 +76,9 @@ function displayMovieList($uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -95,9 +95,9 @@ function echoMessage($echo){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -115,9 +115,9 @@ function apiWriteMessage($apiReq, $score, $uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -135,9 +135,9 @@ function movieFavMessage($uid, $movieText){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -157,9 +157,9 @@ function displayFavMovie($uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -179,9 +179,9 @@ function displayReviews($uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -201,9 +201,9 @@ function displayApiDB($uid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -224,9 +224,9 @@ function movieReviewMessage($uid, $review){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
@@ -245,9 +245,9 @@ function listManagerDel($mid){
 
 	$response = $client->send_request($msg);
 
-	echo "client received response: " . PHP_EOL;
+	//echo "client received response: " . PHP_EOL;
 	return($response);
-	echo "\n\n";
+	//echo "\n\n";
 
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
