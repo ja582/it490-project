@@ -16,12 +16,15 @@ if($response == false){
 if(isset($_POST['submitButton'])){
     try{
         $movie_id = $_POST['movie_id'];
-        echo $movie_id;
-        $rabbitResponse = listManagerDel($movie_id);
-        if($rabbitResponse == false){
-            echo "didnt work";
+        if($movie_id == null){
+            echo "Select a movie before trying to delete!";
         }else{
-            echo "Movie deleted!";
+            $rabbitResponse = listManagerDel($movie_id);
+            if($rabbitResponse == false){
+                echo "didnt work";
+            }else{
+                echo "Movie deleted!";
+            }
         }
     }
     catch(Exception $e){
