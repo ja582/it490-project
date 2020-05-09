@@ -82,7 +82,7 @@ function displayMovieList($uid){
 	}
 }
 
-function movieReviewMessage($uid, $review, $movie_title){
+function movieReviewMessage($uid, $review, $movie_title, $movie_id){
 	global $db;
 	//Checking if review already exists for that user's movie
 	$revieewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
@@ -94,11 +94,12 @@ function movieReviewMessage($uid, $review, $movie_title){
 		return false;
 	}else{
 		$fixTitle = trim($movie_title," ");
-		$quest = 'INSERT INTO user_reviews (review, user_id, movie_title) VALUES (:review, :user_id, :movie_title)';
+		$quest = 'INSERT INTO user_reviews (review, user_id, movie_title, movie_id) VALUES (:review, :user_id, :movie_title, :movie_id)';
 		$stmt = $db->prepare($quest);
 		$stmt->bindParam(':review', $review);
 		$stmt->bindParam(':user_id', $uid);
 		$stmt->bindParam(':movie_title', $fixTitle);
+		$stmt->bindParam(':movie_id', $movie_id);
 		$stmt->execute();
 	}
 }
@@ -275,7 +276,7 @@ function request_processor($req){
 		case "favMovie":
 			return movieFavMessage($req['uid'], $req['movieText']);
 		case "review":
-			return movieReviewMessage($req['uid'], $req['review'], $req['title']);
+			return movieReviewMessage($req['uid'], $req['review'], $req['title'], $req['mid']);
 		case "displayReview":
 			return displayReviews($req['uid']);
 		case "displayApi":
