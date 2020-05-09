@@ -15,8 +15,11 @@ if($response == false){
 if(isset($_POST['submitButton'])){
     try{
         $review = $_POST['review'];
-        $title = $_POST['title'];
-        $rabbitResponse = movieReviewMessage($id, $review, $title);
+        $values = $_POST['movie_info'];
+        $values_explode = explode('|', $values);
+        $title = values_explode[0];
+        $movie_id = values_explode[1];
+        $rabbitResponse = movieReviewMessage($id, $review, $title, $movie_id);
         if($rabbitResponse == false){
             echo "Review was not added!";
         }else{
@@ -38,9 +41,9 @@ if(isset($_POST['submitButton'])){
 <br>
 <p>Please Select A Movie and Write a Review:</p>
 <form class="form" method="POST" action="#">
-    <select id="title" name="title">
+    <select id="movie_info" name="movie_info">
         <?php foreach($ulist as $index=>$row):?>
-            <option value="<?php echo $row['movie_title']?>"><?php echo $row['movie_title']?></option>
+            <option value="<?php echo $row['movie_title']?>|<?php echo $row['id']?>"><?php echo $row['movie_title']?></option>
         <?php endforeach;?>
     </select>
     <input name="review" type="text" class="form-control" placeholder="Please write what you think of the movie." required/>
