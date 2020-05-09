@@ -15,9 +15,9 @@ function apiRequest($api){
 
     $response = $client->send_request($msg);
 
-    echo "client received response: " . PHP_EOL;
+    //echo "client received response: " . PHP_EOL;
     return($response);
-    echo "\n\n";
+    //echo "\n\n";
 
     if(isset($argv[0]))
         echo $argv[0] . " END".PHP_EOL;

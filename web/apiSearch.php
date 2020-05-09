@@ -16,8 +16,9 @@ if(isset($_POST['submitButton'])){
         }
         $rabbitResponse = apiRequest($apiReq);
         if($rabbitResponse == false){
-            echo "didnt work";
+            echo "Movie failed to be added!";
         }else{
+            echo "Movie added!";
             apiWriteMessage($rabbitResponse, $score, $id);
         }
     }
