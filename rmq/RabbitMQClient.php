@@ -231,9 +231,26 @@ function movieReviewMessage($uid, $review){
 	if(isset($argv[0]))
 		echo $argv[0] . " END".PHP_EOL;
 
+}
 
+function listManagerDel($mid){
+	$client = new RabbitMQClient('databaseRabbitMQ.ini', 'it490Server');
+	if(isset($argv[1])){
+		$msg = $argv[1];
+	}
+	else{
+		$msg = array("message"=>"Movie Deleted!", "type"=>"delmovie", "mid" => $mid);
 
+	}
 
+	$response = $client->send_request($msg);
+
+	echo "client received response: " . PHP_EOL;
+	return($response);
+	echo "\n\n";
+
+	if(isset($argv[0]))
+		echo $argv[0] . " END".PHP_EOL;
 
 }
 ?>

@@ -195,6 +195,16 @@ function displayApiDB($uid){
 	return json_encode($apiList);
 }
 
+function listManagerDel($mid){
+	global $db;
+
+	$quest = 'DELETE FROM user_movies WHERE id = :id';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':id', $mid);
+	$stmt->execute();
+	echo "Movie Deleted";
+}
+
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
 	echo "<pre>" . var_dump($req) . "</pre>";
@@ -226,6 +236,8 @@ function request_processor($req){
 			return displayReviews($req['uid']);
 		case "displayApi":
 			return displayApiDB($req['uid']);
+		case "delmovie":
+			return listManagerDel($req['mid']);
 	}
 
 	return array("return_code" => '0',

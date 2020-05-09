@@ -13,14 +13,9 @@ $responseB = displayReviews($id);
 if($response == false && $responseA == false && $responseB == false ){
     echo "Response is false!";
 }
-
 $list = json_decode($response, true);
 $favList = json_decode($responseA, true);
 $reviewList = json_decode($responseB, true);
-
-
-
-$x = 1;
 ?>
 
 <head>
@@ -35,9 +30,21 @@ $x = 1;
     <div class="col">
         <h2>Favorite Movies</h2>
         <p>
-            <?php foreach($favList as $index=>$row): ?>
-                <?php echo $row['movie_title'];?>
+            Your favorite movies with a score of 9 or higher.
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($favList as $index=>$row):?>
+                <tr>
+                    <?php echo "<td>".$row['movie_title']."</td>";?>
+                </tr>
             <?php endforeach;?>
+            </tbody>
+        </table>
         </p>
     </div>
     <div class="col">
