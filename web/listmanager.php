@@ -47,7 +47,7 @@ if(isset($_POST['submitButton'])){
         </tr>
         </thead>
         <tbody>
-        <form class="form-signin" method="POST" action="#">
+        <form class="form-signin" method="GET" action="#">
             <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
             <br>
         <?php foreach($ulist as $index=>$row):?>
