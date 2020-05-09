@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 include_once("blade/header.php");
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $movie_id = $_GET['movie_id'];
-$response = displayMovie($movie_id);
+$response = displayMoviePage($movie_id);
 if($response == false ){
     echo "cant display movie!";
 }else{
