@@ -67,10 +67,22 @@ $reviewList = json_decode($responseB, true);
     <div class="col">
         <h2>Movie Reviews</h2>
         <p>
-            <?php foreach($reviewList as $index=>$row): ?>
-                <?php echo $row['review'];?>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Review</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($reviewList as $index=>$row):?>
+                <tr>
+                    <?php echo "<td>".$row['movie_title']."</td>";?>
+                    <?php echo "<td>".$row['review']."</td>";?>
+                </tr>
             <?php endforeach;?>
-        <br>
+            </tbody>
+        </table>
         </p>
     </div>
 </div>
