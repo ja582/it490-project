@@ -7,6 +7,7 @@ require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $movie_id = $_GET['movie_id'];
 $response = displayMoviePage($movie_id);
 $reviews = displayMovieReviews($movie_id);
+var_dump($reviews);
 if($response == false ){
     echo "cant display movie!";
 }else{
