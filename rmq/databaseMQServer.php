@@ -132,7 +132,7 @@ function apiWriteMessage($apiReq, $score, $uid){
 		//Looping to go through each movie in the JSON Array
 		if(is_array($recAPI)){
 			//Setting variables for later insertion
-			$title = $recAPI["title"];
+			$title = trim($recAPI["title"], chr(0xC2).chr(0xA0));
 			$img = $recAPI["poster"];
 			$mid = $recAPI["id"];
 			$intYear = intval($recAPI["year"]);
