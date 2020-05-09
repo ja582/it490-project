@@ -16,7 +16,7 @@ if($response == false){
 if(isset($_POST['submitButton'])){
     try{
 
-        $movie_id = $_GET['movie_id'];
+        $movie_id = $_POST['movie_id'];
         $rabbitResponse = listManagerDel($movie_id);
         if($rabbitResponse == false){
             echo "didnt work";
@@ -47,7 +47,7 @@ if(isset($_POST['submitButton'])){
         </tr>
         </thead>
         <tbody>
-        <form class="form-signin" method="GET" action="#">
+        <form class="form-signin" method="POST" action="#">
             <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
             <br>
         <?php foreach($ulist as $index=>$row):?>
