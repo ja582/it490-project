@@ -42,6 +42,7 @@ if($response == false){
                 <?php echo "<td>".$row['plot']."</td>";?>
                 <?php echo "<td>".$row['year']."</td>";?>
                 <?php echo "<td>".$row['length']."</td>";?>
+                <?php echo "<td><a href=\"movie.php?movie_id=".$row['id'].">More Info</a></td>";?>
             </tr>
         <?php endforeach;?>
         </tbody>

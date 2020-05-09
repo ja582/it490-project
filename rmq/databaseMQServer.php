@@ -84,6 +84,7 @@ function displayMovieList($uid){
 
 function movieReviewMessage($uid, $review, $movie_title){
 	global $db;
+	//Checking if review already exists for that user's movie
 	$revieewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
 	$revieewcheck->bindParam(':user_id', $uid);
 	$revieewcheck->bindParam(':movie_title', $movie_title);
@@ -222,6 +223,19 @@ function listManagerDel($mid){
 
 }
 
+function displayMoviePage($mid){
+	global $db;
+
+	$quest = 'SELECT * FROM movies WHERE id = (:id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':id', $mid);
+	$stmt->execute();
+	$movieInfo = $stmt->fetchAll();
+
+	return json_encode($movieInfo);
+}
+
+
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
 	echo "<pre>" . var_dump($req) . "</pre>";
@@ -255,6 +269,8 @@ function request_processor($req){
 			return displayApiDB($req['uid']);
 		case "delmovie":
 			return listManagerDel($req['mid']);
+		case "displayMovie":
+			return displayMoviePage($req['mid']);
 	}
 
 	return array("return_code" => '0',
