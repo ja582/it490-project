@@ -84,13 +84,22 @@ function displayMovieList($uid){
 
 function movieReviewMessage($uid, $review, $movie_title){
 	global $db;
-	$fixTitle = trim($movie_title," ");
-	$quest = 'INSERT INTO user_reviews (review, user_id, movie_title) VALUES (:review, :user_id, :movie_title)';
-	$stmt = $db->prepare($quest);
-	$stmt->bindParam(':review', $review);
-	$stmt->bindParam(':user_id', $uid);
-	$stmt->bindParam(':movie_title', $fixTitle);
-	$stmt->execute();
+	$revieewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
+	$revieewcheck->bindParam(':user_id', $uid);
+	$revieewcheck->bindParam(':title', $title);
+	$revieewcheck->execute();
+	$results = $revieewcheck->fetch(PDO::FETCH_ASSOC);
+	if($results && count($results) > 0){
+		return "Review already exists for this movie.";
+	}else{
+		$fixTitle = trim($movie_title," ");
+		$quest = 'INSERT INTO user_reviews (review, user_id, movie_title) VALUES (:review, :user_id, :movie_title)';
+		$stmt = $db->prepare($quest);
+		$stmt->bindParam(':review', $review);
+		$stmt->bindParam(':user_id', $uid);
+		$stmt->bindParam(':movie_title', $fixTitle);
+		$stmt->execute();
+	}
 }
 
 function displayReviews($uid){

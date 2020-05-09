@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 include_once("blade/header.php");
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $response = displayMovieList($id);
+
 if($response == false){
     echo "Response is false!";
 }else{
