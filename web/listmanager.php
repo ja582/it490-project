@@ -57,7 +57,7 @@ if(isset($_POST['submitButton'])){
             <?php endforeach;?>
             <br>
             <br>
-            <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+            <input type="submit" value="Delete Movie" name="submitButton" id="submitButton"/>
         </form>
         </tbody>
     </table>
