@@ -18,7 +18,7 @@ if($response == false ){
     </head>
 
     <br>
-    
+
 
 <?php
 include_once("blade/footer.php");

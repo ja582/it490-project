@@ -32,6 +32,7 @@ if($response == false){
             <th scope="col">Plot</th>
             <th scope="col">Year</th>
             <th scope="col">Length</th>
+            <th scope="col">More Info</th>
         </tr>
         </thead>
         <tbody>
