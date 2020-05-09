@@ -211,14 +211,14 @@ function displayApiDB($uid){
 
 }
 
-function movieReviewMessage($uid, $review){
+function movieReviewMessage($uid, $review, $title){
 
 	$client = new RabbitMQClient('databaseRabbitMQ.ini', 'it490Server');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Review movie", "type"=>"review", "uid" => $uid, "review" => $review);
+		$msg = array("message"=>"Review movie", "type"=>"review", "uid" => $uid, "review" => $review, "title" => $title);
 
 	}
 

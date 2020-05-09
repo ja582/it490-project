@@ -28,23 +28,23 @@ if(isset($_POST['submitButton'])){
 }
 
 ?>
-    <head>
-        <title>Movie Review Home</title>
-    </head>
+<head>
+    <title>Movie Review Home</title>
+</head>
 
-    <br>
-    <h1 class="h3 mb-3 font-weight-normal">Enter in a Movie Review</h1>
-    <br>
-    <p>Please Select A Movie and Write a Review:</p>
-    <form class="form-signin" method="POST" action="#">
-        <?php foreach($ulist as $index=>$row):?>
+<br>
+<h1 class="h3 mb-3 font-weight-normal">Enter in a Movie Review</h1>
+<br>
+<p>Please Select A Movie and Write a Review:</p>
+<form class="form-signin" method="POST" action="#">
+    <?php foreach($ulist as $index=>$row):?>
         <select id="title" name="title">
-            <option value="<?php echo $row['title'] ?>"><?php echo $row['title'] ?></option>
+            <option value="<?php echo $row['movie_title']; ?>"><?php echo $row['movie_title']; ?></option>
         </select>
-        <?php endforeach;?>
-        <input name="review" type="text" class="form-control" placeholder="Movie Title - Review" required/>
-        <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
-    </form>
+    <?php endforeach;?>
+    <input name="review" type="text" class="form-control" placeholder="Movie Title - Review" required/>
+    <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+</form>
 <?php
 include_once("blade/footer.php");
 ?>

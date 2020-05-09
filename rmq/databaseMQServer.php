@@ -239,7 +239,7 @@ function request_processor($req){
 		case "favMovie":
 			return movieFavMessage($req['uid'], $req['movieText']);
 		case "review":
-			return movieReviewMessage($req['uid'], $req['review']);
+			return movieReviewMessage($req['uid'], $req['review'], $req['title']);
 		case "displayReview":
 			return displayReviews($req['uid']);
 		case "displayApi":
