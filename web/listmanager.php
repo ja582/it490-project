@@ -15,8 +15,8 @@ if($response == false){
 
 if(isset($_POST['submitButton'])){
     try{
-
         $movie_id = $_POST['movie_id'];
+        echo $movie_id;
         $rabbitResponse = listManagerDel($movie_id);
         if($rabbitResponse == false){
             echo "didnt work";
@@ -48,15 +48,16 @@ if(isset($_POST['submitButton'])){
         </thead>
         <tbody>
         <form class="form-signin" method="POST" action="#">
-            <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+            <?php foreach($ulist as $index=>$row):?>
+                <tr>
+                    <?php echo "<td>".$row['movie_title']."</td>";?>
+                    <?php echo "<td>".$row['score']."</td>";?>
+                    <td><input type="radio" name="movie_id" value="<?php $row['id'] ?>"></td>
+                </tr>
+            <?php endforeach;?>
             <br>
-        <?php foreach($ulist as $index=>$row):?>
-            <tr>
-                <?php echo "<td>".$row['movie_title']."</td>";?>
-                <?php echo "<td>".$row['score']."</td>";?>
-                <td><input type="radio" name="movie_id" value="<?php $row['id'] ?>"></td>
-            </tr>
-        <?php endforeach;?>
+            <br>
+            <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
         </form>
         </tbody>
     </table>

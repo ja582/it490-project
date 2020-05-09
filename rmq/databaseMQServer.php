@@ -198,11 +198,18 @@ function displayApiDB($uid){
 function listManagerDel($mid){
 	global $db;
 
-	$quest = 'DELETE FROM user_movies WHERE id = :id';
-	$stmt = $db->prepare($quest);
-	$stmt->bindParam(':id', $mid);
-	$stmt->execute();
-	echo "Movie Deleted";
+	if($mid == null){
+		echo "Movie ID is null!";
+		echo "\n\n";
+		return false;
+	}else{
+		$quest = 'DELETE FROM user_movies WHERE id = :id';
+		$stmt = $db->prepare($quest);
+		$stmt->bindParam(':id', $mid);
+		$stmt->execute();
+		echo "Movie Deleted";
+	}
+
 }
 
 function request_processor($req){
