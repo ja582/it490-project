@@ -10,7 +10,8 @@ if($response == false ){
     echo "cant display movie!";
 }else{
     $list = json_decode($response, true);
-    $movie_title = $list['title'];
+    var_dump($list);
+    //$movie_title = $list['title'];
     echo "grabbed id, works";
 }
 
@@ -20,7 +21,6 @@ if($response == false ){
     </head>
 
     <br>
-    <?php echo $movie_title;?>
 
 <?php
 include_once("blade/footer.php");
