@@ -54,7 +54,7 @@ if(isset($_POST['submitButton'])){
             <tr>
                 <?php echo "<td>".$row['movie_title']."</td>";?>
                 <?php echo "<td>".$row['score']."</td>";?>
-                <input type="radio" name="movie_id" value="<?php $row['id'] ?>">
+                <td><input type="radio" name="movie_id" value="<?php $row['id'] ?>"></td>
             </tr>
         <?php endforeach;?>
         </form>
