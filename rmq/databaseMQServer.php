@@ -115,6 +115,8 @@ function displayReviews($uid){
 	return json_encode($reviews);
 }
 
+
+
 function displayFavMovie($uid){
 	global $db;
 
@@ -235,6 +237,17 @@ function displayMoviePage($mid){
 	return json_encode($movieInfo);
 }
 
+function displayMovieReviews($movie_id){
+	global $db;
+
+	$quest = 'SELECT * FROM user_reviews WHERE movie_id = (:movie_id)';
+	$stmt = $db->prepare($quest);
+	$stmt->bindParam(':movie_id', $movie_id);
+	$stmt->execute();
+	$movieReviews = $stmt->fetchAll();
+
+	return json_encode($movieReviews);
+}
 
 function request_processor($req){
 	echo "Received Request".PHP_EOL;
@@ -271,6 +284,8 @@ function request_processor($req){
 			return listManagerDel($req['mid']);
 		case "displayMovie":
 			return displayMoviePage($req['mid']);
+		case "displayMovieReview":
+			return displayMovieReviews($req['movie_id']);
 	}
 
 	return array("return_code" => '0',
