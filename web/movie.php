@@ -10,6 +10,7 @@ if($response == false ){
     echo "cant display movie!";
 }else{
     $list = json_decode($response, true);
+    echo "grabbed id, works";
 }
 
 ?>
