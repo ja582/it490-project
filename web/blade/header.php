@@ -44,5 +44,5 @@ if($_SESSION['logged'] != true){
 <div class="container">
     Welcome <?php echo $un ?>! User ID: <?php echo $id ?>
     <br>
-    <a href="dashboard.php">Home</a> /  <a href="profile.php">Profile</a> / <a href="apiSearch.php">Add to Movie List</a> / <a href="movieReview.php"> Create a Review</a> / <a href="moviedb.php">View Movie Database</a>
+    <a href="dashboard.php">Home</a> /  <a href="profile.php">Profile</a> / <a href="apiSearch.php">Add to Movie List</a> / <a href="movieReview.php"> Create a Review</a> / <a href="moviedb.php">View Movie Database</a> / <a href="logout.php">Logout</a>
     <br>
