@@ -44,7 +44,7 @@ if(isset($_POST['submitButton'])){
 <form class="form" method="POST" action="#">
     <select id="movie_info" name="movie_info">
         <?php foreach($ulist as $index=>$row):?>
-            <option value="<?php echo $row['movie_title']?>|<?php echo $row['id']?>"><?php echo $row['movie_title']?></option>
+            <option value="<?php echo $row['title']?>|<?php echo $row['id']?>"><?php echo $row['title']?></option>
         <?php endforeach;?>
     </select>
     <input name="reviewTitle" type="text" class="form-control" placeholder="Please write a title for your review." required/>
