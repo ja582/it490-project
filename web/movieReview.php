@@ -16,15 +16,18 @@ if(isset($_POST['submitButton'])){
     try{
         $review = $_POST['review'];
         $values = $_POST['movie_info'];
+        print($values);
         $values_explode = explode('|', $values);
         $title = values_explode[0];
         $movie_id = values_explode[1];
+        /*
         $rabbitResponse = movieReviewMessage($id, $review, $title, $movie_id);
         if($rabbitResponse == false){
             echo "Review was not added!";
         }else{
             echo '<b><p class=\"text-success\">Review added!</p></b>';
         }
+        */
     }
     catch(Exception $e){
         echo $e->getMessage();
