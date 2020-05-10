@@ -45,14 +45,14 @@ function loginMessage($username, $password){
 		echo $argv[0] . " END".PHP_EOL;
 }
 
-function createMovieMessage($movie_title, $score, $uid, $reviewTitle){
+function createMovieMessage($movie_title, $score, $uid){
 
 	$client = new RabbitMQClient('databaseRabbitMQ.ini', 'it490Server');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Movie", "type"=>"create_list", "movie_title" => $movie_title, "score" => $score, "uid" => $uid, "reviewTitle" => $reviewTitle);
+		$msg = array("message"=>"Movie", "type"=>"create_list", "movie_title" => $movie_title, "score" => $score, "uid" => $uid);
 	}
 
 	$response = $client->send_request($msg);
@@ -211,14 +211,14 @@ function displayApiDB($uid){
 
 }
 
-function movieReviewMessage($uid, $review, $title, $movie_id){
+function movieReviewMessage($uid, $review, $title, $movie_id, $reviewTitle){
 
 	$client = new RabbitMQClient('databaseRabbitMQ.ini', 'it490Server');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Review movie", "type"=>"review", "uid" => $uid, "review" => $review, "title" => $title, "mid" => $movie_id);
+		$msg = array("message"=>"Review movie", "type"=>"review", "uid" => $uid, "review" => $review, "title" => $title, "mid" => $movie_id, "reviewTitle" => $reviewTitle);
 
 	}
 

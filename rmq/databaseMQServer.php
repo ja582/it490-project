@@ -85,11 +85,11 @@ function displayMovieList($uid){
 function movieReviewMessage($uid, $review, $movie_title, $movie_id, $reviewTitle){
 	global $db;
 	//Checking if review already exists for that user's movie
-	$revieewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
-	$revieewcheck->bindParam(':user_id', $uid);
-	$revieewcheck->bindParam(':movie_title', $movie_title);
-	$revieewcheck->execute();
-	$results = $revieewcheck->fetch(PDO::FETCH_ASSOC);
+	$reviewcheck = $db->prepare('SELECT * FROM user_reviews WHERE movie_title = :movie_title AND user_id = :user_id');
+	$reviewcheck->bindParam(':user_id', $uid);
+	$reviewcheck->bindParam(':movie_title', $movie_title);
+	$reviewcheck->execute();
+	$results = $reviewcheck->fetch(PDO::FETCH_ASSOC);
 	if($results && count($results) > 0){
 		return false;
 	}else{
@@ -116,8 +116,6 @@ function displayReviews($uid){
 
 	return json_encode($reviews);
 }
-
-
 
 function displayFavMovie($uid){
 	global $db;
