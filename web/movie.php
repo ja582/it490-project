@@ -7,11 +7,13 @@ require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $movie_id = $_GET['movie_id'];
 $response = displayMoviePage($movie_id);
 $reviews = displayMovieReviews($movie_id);
+
 if($response == false ){
     echo "cant display movie!";
 }else{
     $list = json_decode($response, true);
     $rlist = json_decode($reviews, true);
+    var_dump($rlist);
 }
 
 ?>
