@@ -14,7 +14,13 @@ if($response == false ){
 
 ?>
     <head>
-        <title>New Page Template</title>
+        <title>Movie Page</title>
+        <style>
+            .img-responsive {
+                width: auto;
+                height: 200px;
+            }
+        </style>
     </head>
 
     <br>
