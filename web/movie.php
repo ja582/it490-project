@@ -13,7 +13,6 @@ if($response == false ){
 }else{
     $list = json_decode($response, true);
     $rlist = json_decode($reviews, true);
-    var_dump($rlist);
 }
 
 ?>

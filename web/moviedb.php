@@ -30,7 +30,7 @@ if($response == false){
             <th scope="col">Poster</th>
             <th scope="col">Title</th>
             <th scope="col">Year</th>
-            <th scope="col">More Info</th>
+            <th scope="col">Page Link</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@ if($response == false){
                 <?php echo "<td>"."<img src=".$row['poster']." class=\"img-responsive\">"."</td>";?>
                 <?php echo "<td>".$row['title']."</td>";?>
                 <?php echo "<td>".$row['year']."</td>";?>
-                <?php $movie_id = $row['id']; echo "<td><a href=\"movie.php?movie_id=".$movie_id."\">More Info</a></td>";?>
+                <?php $movie_id = $row['id']; echo "<td><a href=\"movie.php?movie_id=".$movie_id."\">Go Here For Reviews & More Info</a></td>";?>
             </tr>
         <?php endforeach;?>
         </tbody>
