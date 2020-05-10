@@ -4,7 +4,7 @@
 read -p "Enter IP of destination: " address
 
 
-ssh -i /home/ubuntu/.ssh/id_dev_migration ubuntu@$address "./backupFileDBB.sh"
+ssh -i /home/ubuntu/.ssh/id_DB_migration ubuntu@$address "./backupFileDBB.sh"
 
 
 
