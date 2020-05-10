@@ -45,14 +45,14 @@ function loginMessage($username, $password){
 		echo $argv[0] . " END".PHP_EOL;
 }
 
-function createMovieMessage($movie_title, $score, $uid){
+function createMovieMessage($movie_title, $score, $uid, $reviewTitle){
 
 	$client = new RabbitMQClient('databaseRabbitMQ.ini', 'it490Server');
 	if(isset($argv[1])){
 		$msg = $argv[1];
 	}
 	else{
-		$msg = array("message"=>"Movie", "type"=>"create_list", "movie_title" => $movie_title, "score" => $score, "uid" => $uid);
+		$msg = array("message"=>"Movie", "type"=>"create_list", "movie_title" => $movie_title, "score" => $score, "uid" => $uid, "reviewTitle" => $reviewTitle);
 	}
 
 	$response = $client->send_request($msg);

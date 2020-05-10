@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once("blade/header.php");
 require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
-$response = displayMovieList($id);
+$response = displayApiDB($id);
 
 if($response == false){
     echo "Response is false!";
@@ -14,12 +14,13 @@ if($response == false){
 
 if(isset($_POST['submitButton'])){
     try{
-        $review = $_POST['review'];
+        $review = $_POST['reviewDesc'];
+        $reviewTitle = $_POST['reviewTitle'];
         $values = $_POST['movie_info'];
         $values_explode = explode('|', $values);
         $title = $values_explode[0];
         $movie_id = $values_explode[1];
-        $rabbitResponse = movieReviewMessage($id, $review, $title, $movie_id);
+        $rabbitResponse = movieReviewMessage($id, $review, $title, $movie_id, $reviewTitle);
         if($rabbitResponse == false){
             echo "Review was not added!";
         }else{
@@ -46,7 +47,8 @@ if(isset($_POST['submitButton'])){
             <option value="<?php echo $row['movie_title']?>|<?php echo $row['id']?>"><?php echo $row['movie_title']?></option>
         <?php endforeach;?>
     </select>
-    <input name="review" type="text" class="form-control" placeholder="Please write what you think of the movie." required/>
+    <input name="reviewTitle" type="text" class="form-control" placeholder="Please write a title for your review." required/>
+    <input name="reviewDesc" type="text" class="form-control" placeholder="Please write what you think of the movie." required/>
     <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
 </form>
 <?php

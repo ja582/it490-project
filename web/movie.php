@@ -12,7 +12,7 @@ if($response == false ){
     echo "cant display movie!";
 }else{
     $list = json_decode($response, true);
-    echo "grabbed id, works";
+    $rlist = json_decode($reviews, true);
 }
 
 ?>
@@ -44,7 +44,15 @@ if($response == false ){
         </tbody>
     </table>
     <br>
-
+<?php foreach($rlist as $index=>$row):?>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title"><?php echo $row['reviewTitle']; ?></h5>
+            <h6 class="card-subtitle mb-2 text-muted">By User #<?php echo $row['user_id']; ?></h6>
+            <p class="card-text"><?php echo $row['review']; ?></p>
+        </div>
+    </div>
+<?php endforeach;?>
 <?php
 include_once("blade/footer.php");
 ?>
