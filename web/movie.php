@@ -7,7 +7,6 @@ require('/var/www/html/it490-project/rmq/RabbitMQClient.php');
 $movie_id = $_GET['movie_id'];
 $response = displayMoviePage($movie_id);
 $reviews = displayMovieReviews($movie_id);
-var_dump($reviews);
 if($response == false ){
     echo "cant display movie!";
 }else{
@@ -45,6 +44,7 @@ if($response == false ){
     </table>
     <br>
 <?php foreach($rlist as $index=>$row):?>
+    <br>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"><?php echo $row['reviewTitle']; ?></h5>
@@ -52,6 +52,7 @@ if($response == false ){
             <p class="card-text"><?php echo $row['review']; ?></p>
         </div>
     </div>
+    <br>
 <?php endforeach;?>
 <?php
 include_once("blade/footer.php");
