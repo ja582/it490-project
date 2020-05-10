@@ -2,11 +2,12 @@
 include_once("blade/header.php");
 ?>
     <head>
-        <title>dashboard</title>
+        <title>Dashboard</title>
     </head>
 
     <br>
-    <a href="apiSearch.php">Add to List</a> <a href="profile.php">profile</a>
+    Welcome to the Dashboard!
+    <a href="apiSearch.php">Add to Movie List</a> <a href="profile.php">View Your Content</a>
 
 <?php
 include_once("blade/footer.php");

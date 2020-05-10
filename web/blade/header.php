@@ -1,5 +1,8 @@
 <?php
 //The header here includes all the html code, session, and the navbar. Just including this will make new pages way easier to create.
+ini_set('display_errors',1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 $un = $_SESSION['user']['name'];
 $id = $_SESSION['user']['id'];
@@ -44,5 +47,5 @@ if($_SESSION['logged'] != true){
 <div class="container">
     Welcome <?php echo $un ?>! User ID: <?php echo $id ?>
     <br>
-    <a href="dashboard.php">Home</a> /  <a href="profile.php">Profile</a> / <a href="apiSearch.php">Add to Movie List</a> / <a href="movieReview.php"> Create a Review</a> / <a href="moviedb.php">View Movie Database</a> / <a href="logout.php">Logout</a>
+    <a href="dashboard.php">Home</a> /  <a href="profile.php">Profile</a> / <a href="apiSearch.php">Add to Movie List</a> / <a href="movieReview.php">Create a Review</a> / <a href="moviedb.php">View Movie Database</a> / <a href="logout.php">Logout</a>
     <br>
